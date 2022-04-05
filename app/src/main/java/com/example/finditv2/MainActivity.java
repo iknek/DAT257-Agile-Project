@@ -1,5 +1,6 @@
 package com.example.finditv2;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,9 +21,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //TextView showItems = (TextView) findViewById(R.id.item_list);
-        //showItems.setText("hej");
+        Intent intent = new Intent(getApplicationContext(), ItemScreen.class);
+        Bundle extras = intent.getExtras();
     }
 
     public void printHi(View view) {
@@ -34,8 +34,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToItemScreen(View view) {
-        setContentView(R.layout.item_screen);
-        //showItems.setText("hej");
+        //Vi gör såklart inte såhär sen när vi kan hämta sparade items från minnet!
+        Intent intent = new Intent(getApplicationContext(), ItemScreen.class);
+
+        String[] items = new String[itemList.size()];
+        for (int i = 0; i < itemList.size(); i++) {
+            items[i] = itemList.get(i).description;
+        }
+        intent.putExtra("Items", items);
+        startActivity(intent);
     }
 
     public void saveItem(View view){

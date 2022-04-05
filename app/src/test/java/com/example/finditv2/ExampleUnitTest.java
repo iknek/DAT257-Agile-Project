@@ -1,4 +1,4 @@
-package com.example.findit;
+package com.example.finditv2;
 
 import org.junit.Test;
 

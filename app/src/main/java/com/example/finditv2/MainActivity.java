@@ -7,7 +7,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

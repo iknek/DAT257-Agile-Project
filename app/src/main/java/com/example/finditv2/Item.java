@@ -1,6 +1,8 @@
 package com.example.finditv2;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
 
     String description;
 

@@ -17,7 +17,7 @@
     <Button
             android:text="Add New Item"
             android:layout_width="wrap_content"
-            android:onClick="printHi"
+            android:onClick="openItemMenu"
             android:layout_height="wrap_content" android:id="@+id/button" tools:layout_editor_absoluteY="38dp"
             tools:layout_editor_absoluteX="16dp" tools:ignore="MissingConstraints"/>
 

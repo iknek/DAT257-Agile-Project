@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.content.Intent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FileManager fileManager = new FileManager(context);
+        Intent intent = new Intent(getApplicationContext(), ItemScreen.class);
+        Bundle extras = intent.getExtras();
     }
 
     /**
@@ -43,6 +46,18 @@ public class MainActivity extends AppCompatActivity {
         EditText text = (EditText)findViewById(R.id.descriptionTextInput);
         String value = text.getText().toString();
         saveItem(value,view);
+    }
+
+    public void goToItemScreen(View view) {
+        //Vi gör såklart inte såhär sen när vi kan hämta sparade items från minnet!
+        Intent intent = new Intent(getApplicationContext(), ItemScreen.class);
+
+        String[] items = new String[itemList.size()];
+        for (int i = 0; i < itemList.size(); i++) {
+            items[i] = itemList.get(i).description;
+        }
+        intent.putExtra("Items", items);
+        startActivity(intent);
     }
 
     /**

@@ -5,7 +5,15 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"><![CDATA[
+
+    android:onClick="printHi"
+            android:layout_height="wrap_content" android:id="@+id/button"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="6dp"/>
+
+    ]]>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -13,23 +21,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.431"/>
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintVertical_bias="0.665"/>
     <Button
             android:text="Add New Item"
             android:layout_width="wrap_content"
             android:onClick="openItemMenu"
-            android:layout_height="wrap_content" android:id="@+id/button" tools:layout_editor_absoluteY="38dp"
-            tools:layout_editor_absoluteX="16dp" tools:ignore="MissingConstraints"/>
-            android:onClick="printHi"
-            android:layout_height="wrap_content" android:id="@+id/button"
-            tools:ignore="MissingConstraints"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="6dp"/>
+            android:layout_height="wrap_content" android:id="@+id/button" tools:layout_editor_absoluteY="400dp"
+            tools:layout_editor_absoluteX="133dp" tools:ignore="MissingConstraints"/>
     <Button
             android:text="View Items"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/button6"
-            android:onClick="goToItemScreen" android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp"/>
+            android:onClick="goToItemScreen" android:layout_marginEnd="144dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="340dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

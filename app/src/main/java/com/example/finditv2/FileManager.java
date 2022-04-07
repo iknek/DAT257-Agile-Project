@@ -3,6 +3,8 @@ package com.example.finditv2;
 import android.content.Context;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileManager {
 
@@ -22,9 +24,15 @@ public class FileManager {
      */
     public static void saveObject(Item item){
         try {
+            List<Item> currentItems = getObject();
+            if(currentItems == null){
+                currentItems = new ArrayList<>();
+            }
+
+            currentItems.add(item);
             FileOutputStream fos = context.openFileOutput("data.bin", Context.MODE_PRIVATE);
             ObjectOutputStream os = new ObjectOutputStream(fos);
-            os.writeObject(item);
+            os.writeObject(currentItems);
             os.close();
 
         } catch (Exception e) {
@@ -36,12 +44,12 @@ public class FileManager {
      * Gets the most recently added object from the data.bin file.
      * @return item
      */
-    public static Item getObject(){
-        Item item = null;
+    public static List<Item> getObject(){
+        List<Item> item = null;
         try {
             FileInputStream fis = context.openFileInput("data.bin");
             ObjectInputStream is = new ObjectInputStream(fis);
-            item = (Item) is.readObject();
+            item = (List<Item>) is.readObject();
             is.close();
 
         } catch (Exception e) {
@@ -51,3 +59,4 @@ public class FileManager {
     }
 
 }
+

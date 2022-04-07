@@ -84,7 +84,14 @@ public class MainActivity extends AppCompatActivity {
         }
         //FileManager.getObject();
         final TextView mTextView = (TextView) findViewById(R.id.textView2);
-        mTextView.setText(FileManager.getObject().getDescription());
+        //mTextView.setText(FileManager.getObject().getDescription());
+        List<Item> items = FileManager.getObject();
+        StringBuilder itemString = new StringBuilder();
+        for (int i = 0; i < items.size(); i++) {
+            itemString.append(items.get(i).getDescription());
+            itemString.append("\n");
+        }
+        mTextView.setText(itemString);
     }
 
     /**

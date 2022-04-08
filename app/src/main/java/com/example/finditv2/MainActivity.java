@@ -48,15 +48,13 @@ public class MainActivity extends AppCompatActivity {
         saveItem(value,view);
     }
 
-    public void goToItemScreen(View view) {
-        //Vi gör såklart inte såhär sen när vi kan hämta sparade items från minnet!
-        Intent intent = new Intent(getApplicationContext(), ItemScreen.class);
+    /**
+     * Changes Activity to one where the Items are displayed in a list, the ItemScreen.
+     * @param view a reference to the view which the method is connected to.
+     */
 
-        String[] items = new String[itemList.size()];
-        for (int i = 0; i < itemList.size(); i++) {
-            items[i] = itemList.get(i).description;
-        }
-        intent.putExtra("Items", items);
+    public void goToItemScreen(View view) {
+        Intent intent = new Intent(getApplicationContext(), ItemScreen.class);
         startActivity(intent);
     }
 
@@ -64,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
      Checks if item has a description. If it does, it makes a new Item object with said description, and passes it onto FileManager.saveObject.
      Also adds the item to an itemlist. Used for debugging currently.
      */
+
     public void saveItem(String value, View view){
         if(!value.equals("")){
             Item item = new Item(value);

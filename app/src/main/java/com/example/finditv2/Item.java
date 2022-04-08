@@ -15,7 +15,6 @@ public class Item implements Serializable {
      */
     public Item(String string){
         this.description = string;
-
     }
 
 

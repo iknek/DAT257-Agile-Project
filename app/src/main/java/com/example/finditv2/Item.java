@@ -5,13 +5,14 @@ import java.io.Serializable;
 public class Item implements Serializable {
 
     String description;
+    //hello
+
     /**
-     * Item constructor.
-     * @param string = Item description
+     * Constructs an Item object
+     * @param string the description of the lost item.
      */
     public Item(String string){
         this.description = string;
-
     }
 
 

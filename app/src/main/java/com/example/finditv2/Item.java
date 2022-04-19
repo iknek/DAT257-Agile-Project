@@ -22,7 +22,6 @@ public class Item implements Serializable {
 
     public Item(String string){
         this.description = string;
-        this.category = new Category("Uncategorized");
     }
 
 
@@ -32,5 +31,9 @@ public class Item implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

@@ -9,12 +9,20 @@ public class Item implements Serializable {
 
     String description;
 
+    Category category;
+
     /**
      * Creates an Item object.
      * @param string The Item objects associated description.
      */
+    public Item(String string, Category category){
+        this.description = string;
+        this.category = category;
+    }
+
     public Item(String string){
         this.description = string;
+        this.category = new Category("Uncategorized");
     }
 
 

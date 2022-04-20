@@ -32,22 +32,26 @@ public class ItemScreen extends AppCompatActivity {
      * Gets the lost items from the memory. Likely to be changed
      * @return A String of lost items
      */
-
     private String getItems () {
-        List<Item> items = FileManager.getObject();
-        StringBuilder itemString = new StringBuilder();
+        try {
+            List<Item> items = FileManager.getObject();
+            StringBuilder itemString = new StringBuilder();
             for (int i = 0; i < items.size(); i++) {
-            itemString.append(items.get(i).getDescription());
-            itemString.append("\n");
-        }
+                itemString.append(items.get(i).getDescription());
+                itemString.append("\n");
+            }
             return itemString.toString();
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
     /**
      * This method displays all the lost items. Will probably be changed later.
-     * @param Items A String that contains all the lost items
+     * @param items A String that contains all the lost items
      */
-    private void displayItems(String Items) {
-        showItems.append(Items);
+    private void displayItems(String items) {
+        if(items != null)showItems.append(items);
     }
 }

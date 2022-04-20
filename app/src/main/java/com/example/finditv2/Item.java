@@ -1,43 +1,31 @@
 package com.example.finditv2;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * The Item class represents each lost item to be found by the user.
  */
 public class Item implements Serializable {
-
     String description;
-
-    Category category;
+    String category;
 
     /**
      * Creates an Item object.
      * @param string The Item objects associated description.
      */
-    public Item(String string, Category category){
+    public Item(String string, String category){
         this.description = string;
         this.category = category;
     }
-
-    public Item(String string){
-        this.description = string;
-    }
-
 
     public String getDescription() {
         return description;
     }
-
+    public String getCategory() {
+        return category;
+    }
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Category getCategory() {
-        return category;
     }
 }

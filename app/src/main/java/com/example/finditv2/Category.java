@@ -1,10 +1,17 @@
 package com.example.finditv2;
 
-public abstract class Category {
+import java.util.List;
+
+public class Category {
 
     String name;
 
     public Category(String name) {
         this.name = name;
     }
+
+    public void setCatagory(String cat){
+
+    }
+
 }

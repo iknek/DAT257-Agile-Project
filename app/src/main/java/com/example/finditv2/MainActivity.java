@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
      * Instance variables
      */
     Context context = this;
-    private List<Item> itemList = new ArrayList<>();
+    private List<Category> categories = new ArrayList<>();
 
     /**
      * Run on app start. Sets the current view window, and makes a file manager which takes in the current context.
@@ -37,47 +37,29 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void openItemMenu(View view) {
-        setContentView(R.layout.new_item_screen);
-    }
-    /**
-    Grabs text from the text box where users can input an item description.
-     */
-    public void grabDescriptionText(View view){
-        EditText text = (EditText)findViewById(R.id.descriptionTextInput);
-        String value = text.getText().toString();
-        saveItem(value,view);
+       // setContentView(R.layout.new_item_screen);
+        Intent intent = new Intent(getApplicationContext(), AddItemScreen.class);
+        startActivity(intent);
     }
 
     /**
      * Changes Activity to one where the Items are displayed in a list, the ItemScreen.
      * @param view a reference to the view which the method is connected to.
      */
-
     public void goToItemScreen(View view) {
         Intent intent = new Intent(getApplicationContext(), ItemScreen.class);
         startActivity(intent);
+
     }
 
     /**
-     Checks if item has a description. If it does, it makes a new Item object with said description, and passes it onto FileManager.saveObject.
-     Also adds the item to an itemlist. Used for debugging currently.
-     */
-
-    public void saveItem(String value, View view){
-        if(!value.equals("")){
-            Item item = new Item(value);
-            FileManager.saveObject(item);
-            itemList.add(item);
-        }
-    }
-
-    /**
+     * TODO: Remove
      * TODO: Return all objects, not just the most recently added on.
      * Currently prints the description of all items in the previously specified list. Also sets the textView text to the item description. (used for debugging)
      * More importantly, it calls FileManager.getObject to retrieve an object from memory.
      * @param view
      */
-    public void printList(View view){
+    /*public void printList(View view){
         for (Item item:itemList) {
             System.out.println(item.getDescription());
         }
@@ -91,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             itemString.append("\n");
         }
         mTextView.setText(itemString);
-    }
+    }*/
 
     /**
      * Changes content view to the main page

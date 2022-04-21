@@ -91,6 +91,13 @@ public class ItemScreen extends AppCompatActivity {
             return null;
         }
     }*/
+
+    /**
+     * Displays only items of a certain category, in a given order
+     * @param category The category of item
+     * @param order What order the items should be displayed in
+     * @return The list of items
+     */
     protected String getItems (String category, String order) {
         try {
             List<Item> items = FileManager.getObject();

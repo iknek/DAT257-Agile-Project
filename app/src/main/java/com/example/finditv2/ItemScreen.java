@@ -20,7 +20,7 @@ public class ItemScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_screen);
         showItems = findViewById(R.id.item_list);
-        String items = getItems("");
+        String items = getItems("All Catagories");
         displayItems(items);
 
         backButton = findViewById(R.id.button5);

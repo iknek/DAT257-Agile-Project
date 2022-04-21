@@ -34,7 +34,7 @@ public class AddItemScreen extends AppCompatActivity {
         addItem = findViewById(R.id.button2);
         editText = findViewById(R.id.descriptionTextInput);
 
-        String[] array = {"All Catagories","One","Two"}; //TODO remove and implement properly
+        String[] array = {"All Categories","One","Two"}; //TODO remove and implement properly
 
         spinner = findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,

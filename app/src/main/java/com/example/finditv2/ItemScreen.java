@@ -20,13 +20,13 @@ public class ItemScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_screen);
         showItems = findViewById(R.id.item_list);
-        String items = getItems("All Catagories");
+        String items = getItems("All Categories");
         displayItems(items);
 
         backButton = findViewById(R.id.button5);
         backButton.setOnClickListener(view -> finish());
 
-        String[] array = {"All Catagories","One","Two"}; //TODO remove and implement properly
+        String[] array = {"All Categories","One","Two"}; //TODO remove and implement properly
 
         spinner = findViewById(R.id.spinner2);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -42,7 +42,7 @@ public class ItemScreen extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                displayItems(getItems(""));
+                displayItems(getItems("All Categories"));
             }
         });
     }
@@ -70,7 +70,7 @@ public class ItemScreen extends AppCompatActivity {
             List<Item> items = FileManager.getObject();
             StringBuilder itemString = new StringBuilder();
             for (int i = 0; i < items.size(); i++) {
-                if(items.get(i).getCategory().equals(category) || category.equals("All Catagories")){ //TODO when category is "" it means all items.
+                if(items.get(i).getCategory().equals(category) || category.equals("All Categories")){ //TODO when category is "" it means all items.
                     itemString.append(items.get(i).getDescription());
                     itemString.append("\n");
                 }

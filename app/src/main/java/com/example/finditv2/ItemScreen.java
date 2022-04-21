@@ -34,10 +34,15 @@ public class ItemScreen extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 displayItems(getItems(spinner.getSelectedItem().toString()));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                displayItems(getItems(""));
             }
         });
     }
@@ -65,7 +70,7 @@ public class ItemScreen extends AppCompatActivity {
             List<Item> items = FileManager.getObject();
             StringBuilder itemString = new StringBuilder();
             for (int i = 0; i < items.size(); i++) {
-                if(items.get(i).getCategory().equals(category) || category.equals("")){ //TODO when category is "" it means all items.
+                if(items.get(i).getCategory().equals(category) || category.equals("All Catagories")){ //TODO when category is "" it means all items.
                     itemString.append(items.get(i).getDescription());
                     itemString.append("\n");
                 }
@@ -82,6 +87,9 @@ public class ItemScreen extends AppCompatActivity {
      * @param items A String that contains all the lost items
      */
     private void displayItems(String items) {
-        if(items != null)showItems.append(items);
+        if(items != null) {
+
+            showItems.setText(items);
+        }
     }
 }

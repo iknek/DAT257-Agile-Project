@@ -58,4 +58,15 @@ public class FileManager {
         return item;
     }
 
+    public static void removeObjects(){
+
+        try{
+            new FileOutputStream("data.bin").close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+
+        }
+    }
+
 }

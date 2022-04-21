@@ -88,4 +88,5 @@ public class AddItemScreen extends AppCompatActivity {
             FileManager.saveObject(item);
         }
     }
+
 }

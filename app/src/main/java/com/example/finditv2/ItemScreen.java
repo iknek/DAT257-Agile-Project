@@ -30,7 +30,7 @@ public class ItemScreen extends AppCompatActivity {
      * Gets the lost items from the memory. Likely to be changed
      * @return A String of lost items
      */
-    private String getItems () {
+    protected String getItems () {
         try {
             List<Item> items = FileManager.getObject();
             StringBuilder itemString = new StringBuilder();

@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Comparator;
 import java.util.List;
 
 public class ItemScreen extends AppCompatActivity {
     TextView showItems;
     Button backButton;
-    private Spinner spinner;
+    private Spinner categorySpinner;
+    private Spinner itemOrderSpinner;
 
     /**
      * Creates a new activity with the layout "item_screen" to display the lost items.
@@ -20,31 +23,54 @@ public class ItemScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_screen);
         showItems = findViewById(R.id.item_list);
-        String items = getItems("All Categories");
+        String items = getItems("All Categories", "Date added ascending");
         displayItems(items);
 
         backButton = findViewById(R.id.button5);
         backButton.setOnClickListener(view -> finish());
 
-        String[] array = {"All Categories","One","Two"}; //TODO remove and implement properly
+        String[] categoryArray = {"All Categories","One","Two"}; //TODO remove and implement properly
 
-        spinner = findViewById(R.id.spinner2);
+        categorySpinner = findViewById(R.id.spinner2);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, array);
+                android.R.layout.simple_spinner_item, categoryArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        categorySpinner.setAdapter(adapter);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                displayItems(getItems(spinner.getSelectedItem().toString()));
+                displayItems(getItems(categorySpinner.getSelectedItem().toString(), itemOrderSpinner.getSelectedItem().toString()));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                displayItems(getItems("All Categories"));
+                displayItems(getItems("All Categories", itemOrderSpinner.getSelectedItem().toString()));
             }
         });
+
+
+        String[] itemOrderArray = {"Date added ascending","Date added descending","Alphabetical", "Alphabetical reversed"}; //TODO remove and implement properly
+
+        itemOrderSpinner = findViewById(R.id.spinner3);
+        ArrayAdapter<String> orderAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, itemOrderArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        itemOrderSpinner.setAdapter(orderAdapter);
+
+        itemOrderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                displayItems(getItems(categorySpinner.getSelectedItem().toString(), itemOrderSpinner.getSelectedItem().toString()));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                displayItems(getItems(categorySpinner.getSelectedItem().toString(), "Date added ascending"));
+            }
+        });
+
+
     }
 
     /**
@@ -65,9 +91,59 @@ public class ItemScreen extends AppCompatActivity {
             return null;
         }
     }*/
-    protected String getItems (String category) {
+    protected String getItems (String category, String order) {
         try {
             List<Item> items = FileManager.getObject();
+
+            Comparator dateAscending = new Comparator<Item>() {
+                @Override
+                public int compare(Item item, Item t1) {
+                    int comp = item.getDate().compareTo(t1.getDate());
+                    return comp;
+                }
+            };
+
+            Comparator dateDescending = new Comparator<Item>() {
+                @Override
+                public int compare(Item item, Item t1) {
+                    int comp = item.getDate().compareTo(t1.getDate());
+                    return -comp;
+                }
+            };
+
+            Comparator alphabetical = new Comparator<Item>() {
+                @Override
+                public int compare(Item item, Item t1) {
+                    int comp = item.getDescription().compareToIgnoreCase(t1.getDescription());
+                    return comp;
+                }
+            };
+
+            Comparator alphabeticalReversed = new Comparator<Item>() {
+                @Override
+                public int compare(Item item, Item t1) {
+                    int comp = item.getDescription().compareToIgnoreCase(t1.getDescription());
+                    return -comp;
+                }
+            };
+
+           if (order.equals("Alphabetical reversed")) {
+               items.sort(alphabeticalReversed);
+           }
+
+           else if (order.equals("Date added descending")){
+               items.sort(dateDescending);
+           }
+
+           else if (order.equals("Alphabetical")){
+               items.sort(alphabetical);
+           }
+
+           else {
+               items.sort(dateAscending);
+           }
+
+
             StringBuilder itemString = new StringBuilder();
             for (int i = 0; i < items.size(); i++) {
                 if(items.get(i).getCategory().equals(category) || category.equals("All Categories")){ //TODO when category is "" it means all items.

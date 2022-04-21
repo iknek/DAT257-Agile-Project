@@ -1,7 +1,5 @@
 package com.example.finditv2;
 
-import com.example.finditv2.Categories.Category;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;

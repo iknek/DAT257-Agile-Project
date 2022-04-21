@@ -79,7 +79,7 @@ public class AddItemScreen extends AppCompatActivity {
     }
 
     /**
-     * Saves item with catagory and description.
+     * Saves item with category and description.
      * @param value = description.
      */
     public void saveItem(String value){

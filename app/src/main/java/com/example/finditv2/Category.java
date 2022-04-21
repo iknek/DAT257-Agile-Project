@@ -10,7 +10,7 @@ public class Category {
         this.name = name;
     }
 
-    public void setCatagory(String cat){
+    public void setCategory(String cat){
 
     }
 

@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.lang.reflect.Array;
+import java.util.Date;
 
 public class AddItemScreen extends AppCompatActivity {
 
@@ -84,7 +85,8 @@ public class AddItemScreen extends AppCompatActivity {
     public void saveItem(String value){
         if(!value.equals("")){
             String currentCategory = spinner.getSelectedItem().toString();
-            Item item = new Item(value, currentCategory);
+            Date date = new Date(System.currentTimeMillis());
+            Item item = new Item(value, currentCategory, date);
             FileManager.saveObject(item);
         }
     }

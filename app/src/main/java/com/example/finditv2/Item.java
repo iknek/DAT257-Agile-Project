@@ -1,6 +1,9 @@
 package com.example.finditv2;
 
+import com.example.finditv2.Categories.Category;
+
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -9,14 +12,16 @@ import java.util.List;
 public class Item implements Serializable {
     String description;
     String category;
+    Date date;
 
     /**
      * Creates an Item object.
      * @param string The Item objects associated description.
      */
-    public Item(String string, String category){
+    public Item(String string, String category, Date date){
         this.description = string;
         this.category = category;
+        this.date = date;
     }
 
     public String getDescription() {
@@ -27,5 +32,10 @@ public class Item implements Serializable {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    // Om man vill ha date i läsvänligt format: formatter.format(date)
+    public Date getDate() {
+        return date;
     }
 }

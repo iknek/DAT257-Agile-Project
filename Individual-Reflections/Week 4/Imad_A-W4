@@ -1,0 +1,19 @@
+- What do I want to learn or understand better?
+Primarily my goal now is to learn how unit testing works within Android studio and Intellij. This is something which the rest of the group has been
+stuck on, and which I have decided to learn. 
+
+- How can I help someone else, or the entire team, to learn something new?
+As mentioned above, unit testing is something which the group has not been able to get working, and which hasn't been done. When I understand it 
+myself, I'll be able to help the group.
+
+- What is my contribution towards the team’s use of Scrum?
+This week, I have mainly just contributed towards keeping the Trello page up to date, by moving cards and ticking off the things that have been done.
+
+- What is my contribution towards the team’s deliveries?
+Together with David, I have done the following: 
+- Added better category system. 
+- Added catagory spinner.
+- Moved code out of main activity class.
+- Text field empties on add-button click.
+- Program doesn't crash if there are no items in the file manager
+I have also started on learning the unit testing software, and preformed general code cleanup + future planning. 

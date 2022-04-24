@@ -5,13 +5,19 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     /**
      * Instance variables
      */
-    Context context = this;
+    //Context context = this;
+    RecyclerViewAdapter adapter;
 
     /**
      * Run on app start. Sets the current view window, and makes a file manager which takes in the current context.
@@ -21,7 +27,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FileManager fileManager = new FileManager(context);
+        FileManager fileManager = new FileManager(this);
+
+        List<Item> items = FileManager.getObject();
+
+        RecyclerView recyclerView = findViewById(R.id.recentlyAdded);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new RecyclerViewAdapter(this);
+        //adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
     }
 
     /**
@@ -40,6 +54,5 @@ public class MainActivity extends AppCompatActivity {
     public void goToItemScreen(View view) {
         Intent intent = new Intent(getApplicationContext(), ItemScreen.class);
         startActivity(intent);
-
     }
 }

@@ -8,9 +8,9 @@ import java.util.List;
  * The Item class represents each lost item to be found by the user.
  */
 public class Item implements Serializable {
-    String description;
-    String category;
-    Date date;
+    private String description;
+    private String category;
+    private Date date;
 
     /**
      * Creates an Item object.

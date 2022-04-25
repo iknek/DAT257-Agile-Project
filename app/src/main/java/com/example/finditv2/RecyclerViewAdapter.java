@@ -21,16 +21,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     // data is passed into the constructor
     RecyclerViewAdapter(Context context) {
-        this.mInflater = LayoutInflater.from(context);
-
-        List<Item> items = FileManager.getObject();
-
         List<String> itemNames = new ArrayList<>();
         List<String> itemCategory = new ArrayList<>();
+        this.mInflater = LayoutInflater.from(context);
 
-        for (Item item: items) {
-            itemNames.add(item.getDescription());
-            itemCategory.add(item.getCategory());
+        try {
+            List<Item> items = FileManager.getObject();
+            for (Item item : items) {
+                itemNames.add(item.getDescription());
+                itemCategory.add(item.getCategory());
+            }
+        }
+        catch (Exception e){
+
         }
 
         this.itemCatList = itemCategory;

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Category {
 
-    String name;
+    private String name;
 
     public Category(String name) {
         this.name = name;

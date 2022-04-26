@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
      * Instance variables
      */
     //Context context = this;
-    RecyclerViewAdapter adapter;
+    private RecyclerViewAdapter adapter;
 
     /**
      * Run on app start. Sets the current view window, and makes a file manager which takes in the current context.

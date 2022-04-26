@@ -11,15 +11,17 @@ public class Item implements Serializable {
     private String description;
     private String category;
     private Date date;
+    private String location;
 
     /**
      * Creates an Item object.
      * @param string The Item objects associated description.
      */
-    public Item(String string, String category, Date date){
+    public Item(String string, String category, Date date, String location){
         this.description = string;
         this.category = category;
         this.date = date;
+        this.location = location;
     }
 
     public String getDescription() {
@@ -28,6 +30,8 @@ public class Item implements Serializable {
     public String getCategory() {
         return category;
     }
+    public String getLocation() {return location;}
+
     public void setDescription(String description) {
         this.description = description;
     }

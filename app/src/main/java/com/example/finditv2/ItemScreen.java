@@ -9,8 +9,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ItemScreen extends AppCompatActivity {
-    TextView showItems;
-    Button backButton;
+    private TextView showItems;
+    private Button backButton;
     private Spinner categorySpinner;
     private Spinner itemOrderSpinner;
 
@@ -155,6 +155,8 @@ public class ItemScreen extends AppCompatActivity {
             for (int i = 0; i < items.size(); i++) {
                 if(items.get(i).getCategory().equals(category) || category.equals("All Categories")){ //TODO when category is "" it means all items.
                     itemString.append(items.get(i).getDescription());
+                    itemString.append(" ");
+                    itemString.append(items.get(i).getLocation());
                     itemString.append("\n");
                 }
             }

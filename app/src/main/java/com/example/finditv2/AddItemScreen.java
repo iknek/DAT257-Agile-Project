@@ -19,7 +19,8 @@ public class AddItemScreen extends AppCompatActivity {
 
     private Button addItem;
     private Button back;
-    private EditText editText;
+    private EditText descriptionBox;
+    private EditText locationBox;
     private Spinner spinner;
 
     /**
@@ -33,7 +34,8 @@ public class AddItemScreen extends AppCompatActivity {
         back = findViewById(R.id.button3);
         back.setOnClickListener(view -> finish());
         addItem = findViewById(R.id.button2);
-        editText = findViewById(R.id.descriptionTextInput);
+        descriptionBox = findViewById(R.id.descriptionTextInput);
+        locationBox = findViewById(R.id.locationTextInput);
 
         String[] array = {"All Categories","One","Two"}; //TODO remove and implement properly
 
@@ -49,7 +51,7 @@ public class AddItemScreen extends AppCompatActivity {
             }
         });
 
-        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        descriptionBox.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
@@ -57,6 +59,16 @@ public class AddItemScreen extends AppCompatActivity {
                 }
             }
         });
+
+        locationBox.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
     }
 
     /**
@@ -72,21 +84,24 @@ public class AddItemScreen extends AppCompatActivity {
      * Gets text from editText box on button click. Also clears the text.
      */
     public void grabDescriptionText(){
-        EditText text = findViewById(R.id.descriptionTextInput);
-        String value = text.getText().toString();
-        saveItem(value);
-        editText.getText().clear();
+        EditText descriptionText = findViewById(R.id.descriptionTextInput);
+        String description = descriptionText.getText().toString();
+        EditText locationText = findViewById(R.id.locationTextInput);
+        String location = locationText.getText().toString();
+        saveItem(description, location);
+        descriptionBox.getText().clear();
+        locationBox.getText().clear();
     }
 
     /**
      * Saves item with category and description.
      * @param value = description.
      */
-    public void saveItem(String value){
-        if(!value.equals("")){
+    public void saveItem(String description, String location){
+        if(!description.equals("")){
             String currentCategory = spinner.getSelectedItem().toString();
             Date date = new Date(System.currentTimeMillis());
-            Item item = new Item(value, currentCategory, date);
+            Item item = new Item(description, currentCategory, date, location);
             FileManager.saveObject(item);
         }
     }

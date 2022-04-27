@@ -19,8 +19,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private ImageView image;
-    private List<Item> items;
-
+    public List<Item> items;
 
     // data is passed into the constructor
     RecyclerViewAdapter(Context context) {
@@ -119,5 +118,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void removeItem(int position){
         items.remove(position);
         notifyItemRemoved(position);
+    }
+    public void setItemsList(List<Item> itemsList){
+        this.items=itemsList;
     }
 }

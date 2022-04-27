@@ -18,6 +18,7 @@ public class ItemScreen extends AppCompatActivity {
     private Spinner categorySpinner;
     private Spinner itemOrderSpinner;
     private RecyclerViewAdapter recyclerViewAdapter;
+    private List<Item> items;
 
     /**
      * Creates a new activity with the layout "item_screen" to display the lost items.
@@ -25,6 +26,7 @@ public class ItemScreen extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        items =FileManager.getObject();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_screen);
         showItems = findViewById(R.id.item_list);
@@ -76,6 +78,7 @@ public class ItemScreen extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 displayItems(getItems(categorySpinner.getSelectedItem().toString(), itemOrderSpinner.getSelectedItem().toString()));
+
             }
 
             @Override
@@ -135,7 +138,7 @@ public class ItemScreen extends AppCompatActivity {
      */
     protected String getItems (String category, String order) {
         try {
-            List<Item> items = FileManager.getObject();
+            List<Item> itemsToSort = items;
 
             Comparator dateAscending = new Comparator<Item>() {
                 @Override
@@ -166,23 +169,34 @@ public class ItemScreen extends AppCompatActivity {
                 public int compare(Item item, Item t1) {
                     int comp = item.getDescription().compareToIgnoreCase(t1.getDescription());
                     return -comp;
+
                 }
             };
 
            if (order.equals("Alphabetical reversed")) {
-               items.sort(alphabeticalReversed);
+               itemsToSort.sort(alphabeticalReversed);
+               recyclerViewAdapter.setItemsList(items);
+               recyclerViewAdapter.notifyDataSetChanged();
            }
 
            else if (order.equals("Date added descending")){
-               items.sort(dateDescending);
+               itemsToSort.sort(dateDescending);
+               recyclerViewAdapter.setItemsList(items);
+               recyclerViewAdapter.notifyDataSetChanged();
            }
 
            else if (order.equals("Alphabetical")){
-               items.sort(alphabetical);
+               itemsToSort.sort(alphabetical);
+               recyclerViewAdapter.setItemsList(items);
+               recyclerViewAdapter.notifyDataSetChanged();
+
+
            }
 
            else {
-               items.sort(dateAscending);
+               itemsToSort.sort(dateAscending);
+               recyclerViewAdapter.setItemsList(items);
+               recyclerViewAdapter.notifyDataSetChanged();
            }
 
 

@@ -54,18 +54,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String item = items.get(position).getDescription();
-        String category = items.get(position).getCategory();
-        holder.itemName.setText(item);
-        holder.itemCategory.setText(category);
-        holder.imageView.setImageResource(R.drawable.ic_action_name);
-        holder.bind(items.get(position), mClickListener);
+        if(position<items.size()){
+            String item = items.get(position).getDescription();
+            String category = items.get(position).getCategory();
+            holder.itemName.setText(item);
+            holder.itemCategory.setText(category);
+            holder.imageView.setImageResource(R.drawable.ic_action_name);
+            holder.bind(items.get(position), mClickListener);
+        }
     }
 
     // total number of rows
     @Override
     public int getItemCount() {
-        return itemNamesList.size();
+        try{
+            return items.size();
+        }catch(Exception e){
+           return 0;
+        }
     }
 
 
@@ -106,8 +112,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     // parent activity will implement this method to respond to click events
-    public interface ItemClickListener {
+    public interface ItemClickListener extends RecyclerView.OnItemTouchListener {
         void onItemClick(View view, int position);
     }
 
+    public void removeItem(int position){
+        items.remove(position);
+        notifyItemRemoved(position);
+    }
 }

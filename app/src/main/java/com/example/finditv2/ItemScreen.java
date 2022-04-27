@@ -1,8 +1,10 @@
 package com.example.finditv2;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.*;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,16 +35,30 @@ public class ItemScreen extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         this.recyclerViewAdapter = new RecyclerViewAdapter(this);
         recyclerView.setAdapter(recyclerViewAdapter);
+        RecyclerViewAdapter.ItemClickListener clickListener = new RecyclerViewAdapter.ItemClickListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                return false;
+            }
 
-        recyclerViewAdapter.setClickListener(new RecyclerViewAdapter.ItemClickListener() {
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+
             @Override
             public void onItemClick(View view, int position) {
-                Item selectedItem = recyclerViewAdapter.getItem(position);
-                List<Item> currentList = FileManager.getObject();
-                FileManager.removeItem(selectedItem);
-                currentList.remove(selectedItem);
+                FileManager.removeItem(recyclerViewAdapter.getItem(position));
+                recyclerViewAdapter.removeItem(position);
             }
-        });
+        };
+        recyclerView.addOnItemTouchListener(clickListener);
+        recyclerViewAdapter.setClickListener(clickListener);
 
 
         backButton = findViewById(R.id.button5);

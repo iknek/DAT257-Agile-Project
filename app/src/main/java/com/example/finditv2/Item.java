@@ -1,5 +1,6 @@
 package com.example.finditv2;
 
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -39,5 +40,14 @@ public class Item implements Serializable {
     // Om man vill ha date i läsvänligt format: formatter.format(date)
     public Date getDate() {
         return date;
+    }
+
+
+    public boolean equals(Item obj){
+        boolean description = obj.getDescription().equals(this.description);
+        boolean location = obj.getLocation().equals(this.location);
+        boolean category = obj.getCategory().equals(this.category);
+        boolean date = obj.getDate().equals(this.date);
+        return description&&location&&category&&date;
     }
 }

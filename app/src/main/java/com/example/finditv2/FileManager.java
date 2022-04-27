@@ -76,11 +76,12 @@ public class FileManager {
                 currentItems = new ArrayList<>();
             }
 
-            currentItems.remove(selectedItem);
+            currentItems.removeIf(fileItem -> fileItem.equals(selectedItem));
             FileOutputStream fos = context.openFileOutput("data.bin", Context.MODE_PRIVATE);
             ObjectOutputStream os = new ObjectOutputStream(fos);
             os.writeObject(currentItems);
             os.close();
+            System.out.println(currentItems);
 
         } catch (Exception e) {
             e.printStackTrace();

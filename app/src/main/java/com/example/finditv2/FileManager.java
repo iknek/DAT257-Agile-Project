@@ -69,4 +69,21 @@ public class FileManager {
         }
     }
 
+    public static void removeItem(Item selectedItem) {
+        try {
+            List<Item> currentItems = getObject();
+            if(currentItems == null){
+                currentItems = new ArrayList<>();
+            }
+
+            currentItems.remove(selectedItem);
+            FileOutputStream fos = context.openFileOutput("data.bin", Context.MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(currentItems);
+            os.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

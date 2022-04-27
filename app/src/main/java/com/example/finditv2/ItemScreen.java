@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Comparator;
 import java.util.List;
@@ -13,6 +15,7 @@ public class ItemScreen extends AppCompatActivity {
     private Button backButton;
     private Spinner categorySpinner;
     private Spinner itemOrderSpinner;
+    private RecyclerViewAdapter recyclerViewAdapter;
 
     /**
      * Creates a new activity with the layout "item_screen" to display the lost items.
@@ -25,6 +28,22 @@ public class ItemScreen extends AppCompatActivity {
         showItems = findViewById(R.id.item_list);
         String items = getItems("All Categories", "Date added ascending");
         displayItems(items);
+
+        RecyclerView recyclerView = findViewById(R.id.recentlyAdded);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        this.recyclerViewAdapter = new RecyclerViewAdapter(this);
+        recyclerView.setAdapter(recyclerViewAdapter);
+
+        recyclerViewAdapter.setClickListener(new RecyclerViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Item selectedItem = recyclerViewAdapter.getItem(position);
+                List<Item> currentList = FileManager.getObject();
+                FileManager.removeItem(selectedItem);
+                currentList.remove(selectedItem);
+            }
+        });
+
 
         backButton = findViewById(R.id.button5);
         backButton.setOnClickListener(view -> finish());

@@ -13,8 +13,8 @@
             android:layout_marginTop="16dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"/>
     <TextView
-            android:layout_width="330dp"
-            android:layout_height="546dp" android:id="@+id/item_list"
+            android:layout_width="339dp"
+            android:layout_height="363dp" android:id="@+id/item_list"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="128dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="37dp"/>
@@ -32,4 +32,15 @@
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="78dp" android:layout_marginEnd="44dp" app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="411dp"
+            android:layout_height="197dp"
+            android:id="@+id/recentlyAdded" android:clipToPadding="true"
+            android:background="#E3E3E3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toBottomOf="@+id/item_list" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0" android:layout_marginBottom="5dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

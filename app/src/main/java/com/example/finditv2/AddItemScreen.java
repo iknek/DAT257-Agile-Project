@@ -94,8 +94,9 @@ public class AddItemScreen extends AppCompatActivity {
     }
 
     /**
-     * Saves item with category and description.
-     * @param value = description.
+     * Saves item with category (set in the spinner), description and location
+     * @param description = the description of the item
+     * @param location = the location of the item
      */
     public void saveItem(String description, String location){
         if(!description.equals("")){

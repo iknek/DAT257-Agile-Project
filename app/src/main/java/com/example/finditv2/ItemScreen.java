@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class ItemScreen extends AppCompatActivity {
     private TextView showItems;
@@ -36,8 +35,8 @@ public class ItemScreen extends AppCompatActivity {
         catch (Exception e) {
             e.printStackTrace();
         }
-        setContentView(R.layout.item_screen);
-        showItems = findViewById(R.id.item_list);
+        setContentView(R.layout.view_items);
+        //showItems = findViewById(R.id.item_list);
         recyclerViewSetUp();
         backButton = findViewById(R.id.button5);
         backButton.setOnClickListener(view -> finish());

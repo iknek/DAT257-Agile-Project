@@ -20,6 +20,7 @@
             android:text="Add item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/button2"
+            android:textColor="@color/black"
             tools:ignore="MissingConstraints"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="152dp" android:layout_marginEnd="153dp"
@@ -54,13 +55,14 @@
             android:layout_height="20dp" android:id="@+id/textView"
             android:textAlignment="center" tools:ignore="MissingConstraints"
             app:layout_constraintStart_toStartOf="parent"
+
             android:layout_marginStart="139dp" android:layout_marginEnd="140dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="188dp" app:layout_constraintHorizontal_bias="0.0"/>
     <Spinner
             android:layout_width="130dp"
             android:layout_height="47dp" android:id="@+id/spinner"
-            android:background="#BCBCBC" android:visibility="visible"
+            android:background="#FFFFFF" android:visibility="visible"
             tools:visibility="visible" tools:ignore="MissingConstraints"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             android:layout_marginBottom="56dp" app:layout_constraintStart_toStartOf="parent"
@@ -68,6 +70,7 @@
     <Button
             android:text="Back"
             android:layout_width="wrap_content"
+            android:textColor="@color/black"
             android:layout_height="wrap_content" android:id="@+id/button3"
             tools:ignore="HardcodedText"
             app:layout_constraintBottom_toTopOf="@+id/spinner"

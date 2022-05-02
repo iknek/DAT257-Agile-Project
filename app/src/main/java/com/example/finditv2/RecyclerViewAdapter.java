@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,7 +58,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.list_items, parent, false);
+        View view = mInflater.inflate(R.layout.list_items_card, parent, false);
 
         return new ViewHolder(view);
     }
@@ -111,7 +110,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ImageView imageView;
         ViewHolder(View itemView) {
             super(itemView);
-            itemName = itemView.findViewById(R.id.textView4);
+            itemName = itemView.findViewById(R.id.textView5);
             imageView = itemView.findViewById(R.id.imageView);
             itemCategory = itemView.findViewById(R.id.textView8);
             itemView.setOnClickListener(this);

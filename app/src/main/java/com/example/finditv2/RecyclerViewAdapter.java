@@ -22,6 +22,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public List<Item> items;
 
     // data is passed into the constructor
+
+    /**
+     * RecyclerViewAdapter constructor
+     * @param context
+     */
     RecyclerViewAdapter(Context context) {
         List<String> itemNames = new ArrayList<>();
         List<String> itemCategory = new ArrayList<>();
@@ -43,6 +48,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     // inflates the row layout from xml when needed
+
+    /**
+     * Inflates the row layout from the XML file if necessary
+     * @param parent The ViewGroup into which the new View will be added after it is bound to
+     *               an adapter position.
+     * @param viewType The view type of the new View.
+     *
+     * @return
+     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.list_items, parent, false);
@@ -51,6 +65,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     // binds the data to the TextView in each row
+
+    /**
+     * Binds the data in each row to the TextView
+     * @param holder The ViewHolder which should be updated to represent the contents of the
+     *        item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         if(position<items.size()){
@@ -64,6 +85,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     // total number of rows
+
+    /**
+     * Returns the total number of rows (items)
+     * @return
+     */
     @Override
     public int getItemCount() {
         try{
@@ -75,6 +101,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     // stores and recycles views as they are scrolled off screen
+
+    /**
+     * Stores the View and recycles them as they are scrolled off screen
+     */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView itemName;
         TextView itemCategory;
@@ -87,10 +117,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             itemView.setOnClickListener(this);
         }
 
+        /**
+         * Registers clicks in view, calls onItemClick
+         * @param view
+         */
         @Override
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
+
+        /**
+         * Binds an item to a listener
+         * @param item
+         * @param listener
+         */
         public void bind(final Item item, final ItemClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
@@ -101,11 +141,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     // convenience method for getting data at click position
+
+    /**
+     * Method for return an item at a specific position equal to id
+     * @param id
+     * @return
+     */
     Item getItem(int id) {
         return items.get(id);
     }
 
     // allows clicks events to be caught
+
+    /**
+     * Allows for itemClickListener to catch events
+     * @param itemClickListener
+     */
     void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
@@ -115,10 +166,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         void onItemClick(View view, int position);
     }
 
+    /**
+     * Removes an item from a list of items at a specified position
+     * @param position
+     */
     public void removeItem(int position){
         items.remove(position);
         notifyItemRemoved(position);
     }
+
+    /**
+     * Binds items to itemsList
+     * @param itemsList
+     */
     public void setItemsList(List<Item> itemsList){
         this.items=itemsList;
     }

@@ -56,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Opens add_category_screen on button click.
+     * @param view a reference to the view which the method is connected to.
+     */
     public void goToAddCategoryScreen(View view){
         Intent intent = new Intent(getApplicationContext(), AddCategoryScreen.class);
         startActivity(intent);

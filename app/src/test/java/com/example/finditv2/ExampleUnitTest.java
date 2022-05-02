@@ -28,6 +28,35 @@ public class ExampleUnitTest {
         //String item = itemScreen.getItems();
         //assertEquals("hi",item);
     }
+/*
+    @Test
+    public void getObject_whenEmpty() {
+        FileManager.removeObjects();
+        assertNull(FileManager.getObject());
+    }
 
+    @Test
+    public void saveObject_saveCorrectNumberOfObjects() {
 
+        FileManager.removeObjects();
+        FileManager.saveObject(new Item("coat"));
+        assertEquals(1, FileManager.getObject().size());
+    }
+
+    @Test
+    public void saveObject_saveCorrectDescription() {
+
+        FileManager.removeObjects();
+        FileManager.saveObject(new Item("coat"));
+        assertEquals("coat", FileManager.getObject().get(0).getDescription());
+    }
+    @Test
+    public void saveObject_areMultipleObjectsSaved(){
+        FileManager.removeObjects();
+        FileManager.saveObject(new Item("coat"));
+        FileManager.saveObject(new Item("coat"));
+        FileManager.saveObject(new Item("coat"));
+        assertEquals(3, FileManager.getObject().size());
+    }
+*/
 }

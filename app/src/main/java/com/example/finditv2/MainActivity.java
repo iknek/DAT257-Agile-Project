@@ -55,4 +55,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), ItemScreen.class);
         startActivity(intent);
     }
+
+    public void goToAddCategoryScreen(View view){
+        Intent intent = new Intent(getApplicationContext(), AddCategoryScreen.class);
+        startActivity(intent);
+    }
 }

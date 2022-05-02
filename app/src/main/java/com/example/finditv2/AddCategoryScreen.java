@@ -15,6 +15,10 @@ public class AddCategoryScreen extends AppCompatActivity {
     private Button addCategory;
     private EditText descriptionBox;
 
+    /**
+     * Method which is called when the add category page is started.
+     * @param savedInstanceState
+     */
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_category_screen);
@@ -48,12 +52,19 @@ public class AddCategoryScreen extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    /**
+     * Takes the text from the text view and saves it into the local files.
+     */
     private void grabDescriptionText(){
         String description = descriptionBox.getText().toString();
         saveItem(description);
         descriptionBox.getText().clear();
     }
 
+    /**
+     * Recieves the text and creates a category which is then saved in local files.
+     * @param category = the text from the textView
+     */
     private void saveItem(String category){
         Category cat = new Category(category);
         FileManager.saveCategory(cat);

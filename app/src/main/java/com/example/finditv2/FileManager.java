@@ -69,6 +69,10 @@ public class FileManager {
         }
     }
 
+    /**
+     * Removes a specific item from the local files.
+     * @param selectedItem = the item to be removed
+     */
     public static void removeItem(Item selectedItem) {
         try {
             List<Item> currentItems = getObject();
@@ -88,6 +92,10 @@ public class FileManager {
         }
     }
 
+    /**
+     * Saves a new category into the local files(categories.bin)
+     * @param category
+     */
     public static void saveCategory(Category category){
         try {
             List<Category> currentItems = getCategories();
@@ -106,6 +114,10 @@ public class FileManager {
         }
     }
 
+    /**
+     * Pulls the list of categories which the app uses from categories.bin
+     * @return the list of categories.
+     */
     public static List<Category> getCategories(){
         List<Category> categories = null;
         try {

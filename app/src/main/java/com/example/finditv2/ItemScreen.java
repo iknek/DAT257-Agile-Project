@@ -45,6 +45,9 @@ public class ItemScreen extends AppCompatActivity {
         OrderPickerSetUp();
     }
 
+    /**
+     * Sets up the spinner which is used to pick the sort order of the items displayed
+     */
     private void OrderPickerSetUp() {
         String[] itemOrderArray = {"Date added ascending","Date added descending","Alphabetical", "Alphabetical reversed"}; //TODO remove and implement properly
 
@@ -66,6 +69,9 @@ public class ItemScreen extends AppCompatActivity {
         });
     }
 
+    /**
+     * Setup for the spinner which picks which categories should be shown.
+     */
     private void categoryPickerSetUp() {
         String[] categoryArray = {"All Categories","One","Two"}; //TODO remove and implement properly
         categorySpinner = findViewById(R.id.spinner2);
@@ -87,6 +93,9 @@ public class ItemScreen extends AppCompatActivity {
         });
     }
 
+    /**
+     * Setup for the recycler-view
+     */
     private void recyclerViewSetUp() {
         RecyclerView recyclerView = findViewById(R.id.recentlyAdded);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

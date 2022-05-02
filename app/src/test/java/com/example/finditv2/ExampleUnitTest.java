@@ -23,7 +23,7 @@ public class ExampleUnitTest {
         //when(addItemScreen.saveItem("hi"));
         addItemScreen = mock(AddItemScreen.class);
         itemScreen = mock(ItemScreen.class);
-        addItemScreen.saveItem("hi");
+        //addItemScreen.saveItem("hi");
 
         //String item = itemScreen.getItems();
         //assertEquals("hi",item);

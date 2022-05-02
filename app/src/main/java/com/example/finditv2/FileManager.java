@@ -87,4 +87,36 @@ public class FileManager {
             e.printStackTrace();
         }
     }
+
+    public static void saveCategory(Category category){
+        try {
+            List<Category> currentItems = getCategories();
+            if(currentItems == null){
+                currentItems = new ArrayList<>();
+            }
+
+            currentItems.add(category);
+            FileOutputStream fos = context.openFileOutput("categories.bin", Context.MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(currentItems);
+            os.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static List<Category> getCategories(){
+        List<Category> categories = null;
+        try {
+            FileInputStream fis = context.openFileInput("categories.bin");
+            ObjectInputStream is = new ObjectInputStream(fis);
+            categories = (List<Category>) is.readObject();
+            is.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return categories;
+    }
 }

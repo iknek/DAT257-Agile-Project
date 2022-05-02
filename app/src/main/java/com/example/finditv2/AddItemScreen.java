@@ -75,7 +75,7 @@ public class AddItemScreen extends AppCompatActivity {
      * Method for hiding keyboard.
      * @param view
      */
-    public void hideKeyboard(View view) {
+    private void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
@@ -83,11 +83,9 @@ public class AddItemScreen extends AppCompatActivity {
     /**
      * Gets text from editText box on button click. Also clears the text.
      */
-    public void grabDescriptionText(){
-        EditText descriptionText = findViewById(R.id.descriptionTextInput);
-        String description = descriptionText.getText().toString();
-        EditText locationText = findViewById(R.id.locationTextInput);
-        String location = locationText.getText().toString();
+    private void grabDescriptionText(){
+        String description = descriptionBox.getText().toString();
+        String location = locationBox.getText().toString();
         saveItem(description, location);
         descriptionBox.getText().clear();
         locationBox.getText().clear();
@@ -98,7 +96,7 @@ public class AddItemScreen extends AppCompatActivity {
      * @param description = the description of the item
      * @param location = the location of the item
      */
-    public void saveItem(String description, String location){
+    private void saveItem(String description, String location){
         if(!description.equals("")){
             String currentCategory = spinner.getSelectedItem().toString();
             Date date = new Date(System.currentTimeMillis());
@@ -106,5 +104,4 @@ public class AddItemScreen extends AppCompatActivity {
             FileManager.saveObject(item);
         }
     }
-
 }

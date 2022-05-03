@@ -1,6 +1,7 @@
 package com.example.finditv2;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +79,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             String category = items.get(position).getCategory();
             holder.itemName.setText(item);
             holder.itemCategory.setText(category);
-            holder.imageView.setImageResource(R.drawable.ic_action_name);
+            holder.location.setText(items.get(position).getLocation());
+
+            switch (category) {
+                case "All Categories": holder.imageView.setImageResource(R.drawable.img); break;
+                case "One": holder.imageView.setImageResource(R.drawable.ic_action_name); break;
+                default: holder.imageView.setImageResource(R.drawable.ic_launcher_background); break;
+            }
             holder.bind(items.get(position), mClickListener);
         }
     }
@@ -108,11 +115,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView itemName;
         TextView itemCategory;
         ImageView imageView;
+        TextView location;
         ViewHolder(View itemView) {
             super(itemView);
             itemName = itemView.findViewById(R.id.textView5);
             imageView = itemView.findViewById(R.id.imageView);
             itemCategory = itemView.findViewById(R.id.textView8);
+            location = itemView.findViewById(R.id.textView5);
             itemView.setOnClickListener(this);
         }
 

@@ -1,6 +1,8 @@
 package com.example.finditv2;
 
 
+import android.net.Uri;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -13,18 +15,28 @@ public class Item implements Serializable {
     private String category;
     private Date date;
     private String location;
-    private String stringUri;
+    private String imageUri;
 
     /**
      * Creates an Item object.
      * @param string The Item objects associated description.
      */
-    public Item(String string, String category, Date date, String location, String stringUri){
+    public Item(String string, String category, Date date, String location){
         this.description = string;
         this.category = category;
         this.date = date;
         this.location = location;
-        this.stringUri = stringUri;
+        this.imageUri = null;
+    }
+
+
+
+    public Item(String string, String category, Date date, String location, String imageUri){
+        this.description = string;
+        this.category = category;
+        this.date = date;
+        this.location = location;
+        this.imageUri = imageUri;
     }
 
     public String getDescription() {
@@ -44,6 +56,9 @@ public class Item implements Serializable {
         return date;
     }
 
+    public String getImageUri() {
+        return imageUri;
+    }
 
     public boolean equals(Item obj){
         boolean description = obj.getDescription().equals(this.description);

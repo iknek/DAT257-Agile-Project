@@ -1,6 +1,11 @@
 package com.example.finditv2;
 
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.widget.ImageView;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -130,5 +135,42 @@ public class FileManager {
             e.printStackTrace();
         }
         return categories;
+    }
+
+    public static String saveToInternalStorage(Bitmap bitmapImage, String imageName){
+        ContextWrapper cw = new ContextWrapper(context);
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        File filePath = new File(directory,imageName);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(filePath);
+            bitmapImage.compress(Bitmap.CompressFormat.JPEG, 20, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return filePath.getAbsolutePath();
+    }
+
+    public static Bitmap loadImageFromStorage(String path)
+    {
+        Bitmap bitmap = null;
+        try {
+            if (path != null) {
+                File file = new File(path);
+                bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        return bitmap;
     }
 }

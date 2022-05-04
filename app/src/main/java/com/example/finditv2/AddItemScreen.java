@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,8 +33,10 @@ public class AddItemScreen extends AppCompatActivity {
     private ImageView imageView;
     private Button addImage;
     private static final int PICK_IMAGE = 100;
-    private Uri imageUri;
-    private String stringUri;
+    private String imagePath;
+
+    //Använder för att identifiera bilderna
+    private Date date;
 
     /**
      * Called when view is opened. Creates view and button listeners within it.
@@ -48,7 +53,7 @@ public class AddItemScreen extends AppCompatActivity {
         locationBox = findViewById(R.id.locationTextInput);
         addImage = findViewById(R.id.imageButton);
         imageView = findViewById(R.id.imageView2);
-
+        date = new Date(System.currentTimeMillis());
         List<String> categoryArray = new ArrayList<>();
         try {
             for(Category cat : FileManager.getCategories()){
@@ -126,8 +131,7 @@ public class AddItemScreen extends AppCompatActivity {
     private void saveItem(String description, String location){
         if(!description.equals("")){
             String currentCategory = spinner.getSelectedItem().toString();
-            Date date = new Date(System.currentTimeMillis());
-            Item item = new Item(description, currentCategory, date, location, stringUri);
+            Item item = new Item(description, currentCategory, date, location, imagePath);
             FileManager.saveObject(item);
         }
     }
@@ -140,10 +144,15 @@ public class AddItemScreen extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE){
-            imageUri = data.getData();
-            stringUri = imageUri.toString();
+            Uri imageUri = data.getData();
             imageView.setImageURI(imageUri);
-            //FileManager.saveImage(new File(imageUri.getPath()));
+            Bitmap bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            imagePath = FileManager.saveToInternalStorage(bitmap, date.toString());
         }
     }
 }

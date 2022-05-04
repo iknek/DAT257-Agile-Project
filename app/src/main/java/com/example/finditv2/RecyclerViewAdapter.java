@@ -1,7 +1,9 @@
 package com.example.finditv2;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +85,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             switch (category) {
                 case "All Categories": holder.imageView.setImageResource(R.drawable.img); break;
-                case "One": holder.imageView.setImageResource(R.drawable.ic_action_name); break;
+                case "One":
+                    if (items.get(position).getImageUri() != null)
+                    holder.imageView.setImageBitmap(FileManager.loadImageFromStorage(items.get(position).getImageUri()));
+                    break;
                 default: holder.imageView.setImageResource(R.drawable.ic_launcher_background); break;
             }
             holder.bind(items.get(position), mClickListener);

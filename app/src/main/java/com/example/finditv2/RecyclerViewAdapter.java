@@ -97,7 +97,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     /**
      * Returns the total number of rows (items)
-     * @return
+     * @return the total amount of items
      */
     @Override
     public int getItemCount() {
@@ -130,7 +130,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         /**
          * Registers clicks in view, calls onItemClick
-         * @param view
+         * @param view the view that should be clickable
          */
         @Override
         public void onClick(View view) {
@@ -156,7 +156,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     /**
      * Method for return an item at a specific position equal to id
      * @param id
-     * @return
+     * @return the item
      */
     Item getItem(int id) {
         return items.get(id);

@@ -83,14 +83,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.itemCategory.setText(category);
             holder.location.setText(items.get(position).getLocation());
 
-            switch (category) {
-                case "All Categories": holder.imageView.setImageResource(R.drawable.img); break;
-                case "One":
-                    if (items.get(position).getImageUri() != null)
-                    holder.imageView.setImageBitmap(FileManager.loadImageFromStorage(items.get(position).getImageUri()));
-                    break;
-                default: holder.imageView.setImageResource(R.drawable.ic_launcher_background); break;
+            if (items.get(position).getImageUri() != null) {
+                holder.imageView.setImageBitmap(FileManager.loadImageFromStorage(items.get(position).getImageUri()));
+            } else {
+
+                // lägga till defaultbiler till olika kategorier
             }
+
             holder.bind(items.get(position), mClickListener);
         }
     }

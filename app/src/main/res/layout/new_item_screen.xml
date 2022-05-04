@@ -83,5 +83,12 @@
             android:textColor="@android:color/black"
             android:layout_height="wrap_content" android:id="@+id/imageButton"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="60dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="84dp"/>
+            android:layout_marginTop="60dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="84dp"
+            android:textColor="@color/black"/>
+    <ImageView
+            android:layout_width="193dp"
+            android:layout_height="137dp" tools:srcCompat="@tools:sample/backgrounds/scenic"
+            android:id="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="108dp" android:layout_marginBottom="60dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

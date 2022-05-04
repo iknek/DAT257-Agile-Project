@@ -86,8 +86,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             if (items.get(position).getImageUri() != null) {
                 holder.imageView.setImageBitmap(FileManager.loadImageFromStorage(items.get(position).getImageUri()));
             } else {
-
-                // lägga till defaultbiler till olika kategorier
+                holder.imageView.setImageResource(R.drawable.no_image);
             }
 
             holder.bind(items.get(position), mClickListener);

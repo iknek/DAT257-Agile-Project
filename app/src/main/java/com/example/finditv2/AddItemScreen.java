@@ -31,9 +31,10 @@ public class AddItemScreen extends AppCompatActivity {
     private Spinner spinner;
 
     private ImageView imageView;
-    private Button addImage;
     private static final int PICK_IMAGE = 100;
+    private static final int CAMERA_PIC_REQUEST = 1337;
     private String imagePath;
+    private Bitmap bitmap;
 
     //Använder för att identifiera bilderna
     private Date date;
@@ -51,9 +52,8 @@ public class AddItemScreen extends AppCompatActivity {
         addItem = findViewById(R.id.button2);
         descriptionBox = findViewById(R.id.descriptionTextInput);
         locationBox = findViewById(R.id.locationTextInput);
-        addImage = findViewById(R.id.imageButton);
         imageView = findViewById(R.id.imageView2);
-        date = new Date(System.currentTimeMillis());
+        imageView.setImageResource(R.drawable.no_image);
         List<String> categoryArray = new ArrayList<>();
         try {
             for(Category cat : FileManager.getCategories()){
@@ -94,8 +94,7 @@ public class AddItemScreen extends AppCompatActivity {
             }
         });
 
-
-        addImage.setOnClickListener(new View.OnClickListener() {
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openGallery();
@@ -131,14 +130,31 @@ public class AddItemScreen extends AppCompatActivity {
     private void saveItem(String description, String location){
         if(!description.equals("")){
             String currentCategory = spinner.getSelectedItem().toString();
-            Item item = new Item(description, currentCategory, date, location, imagePath);
+            date = new Date(System.currentTimeMillis());
+            Item item;
+            if (bitmap != null) {
+                imagePath = FileManager.saveToInternalStorage(bitmap, date.toString());
+                item = new Item(description, currentCategory, date, location, imagePath);
+
+            } else {
+                item = new Item(description, currentCategory, date, location);
+            }
             FileManager.saveObject(item);
+            bitmap = null;
+            imageView.setImageResource(R.drawable.no_image);
+            Toast toast = new Toast(getApplicationContext());
+            toast.setText("Item has been added");
+            toast.show();
         }
     }
 
     private void openGallery() {
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(gallery, PICK_IMAGE);
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+
+        Intent chooser = Intent.createChooser(galleryIntent, "Some text here");
+        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] { cameraIntent });
+        startActivityForResult(chooser, PICK_IMAGE);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -146,13 +162,12 @@ public class AddItemScreen extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE){
             Uri imageUri = data.getData();
             imageView.setImageURI(imageUri);
-            Bitmap bitmap = null;
+            bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            imagePath = FileManager.saveToInternalStorage(bitmap, date.toString());
         }
     }
 }

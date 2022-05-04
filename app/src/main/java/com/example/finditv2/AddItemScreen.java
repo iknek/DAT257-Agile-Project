@@ -48,7 +48,7 @@ public class AddItemScreen extends AppCompatActivity {
 
     /**
      * Called when view is opened. Creates view and button listeners within it.
-     * @param savedInstanceState = idk?
+     * @param savedInstanceState = earlier saved instance data
      */
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -104,7 +104,7 @@ public class AddItemScreen extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openGallery();
+                openCameraOrGallery();
             }
         });
     }
@@ -155,7 +155,10 @@ public class AddItemScreen extends AppCompatActivity {
         }
     }
 
-    private void openGallery() {
+    /**
+     * Opens gallery or Camera to retrieve an Image.
+     */
+    private void openCameraOrGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         Intent chooser = Intent.createChooser(galleryIntent, "Camera or gallery");
@@ -163,21 +166,21 @@ public class AddItemScreen extends AppCompatActivity {
         someActivityResultLauncher.launch(chooser);
     }
 
-    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
-        new ActivityResultContracts.StartActivityForResult(),
-        new ActivityResultCallback<ActivityResult>() {
+    /**
+     * Retrieves the image from either the gallery or directly via the camera app.
+     */
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
             Intent data = result.getData();
-
-            Uri imageUri = data.getData();
-            imageView.setImageURI(imageUri);
             if (data.hasExtra("data")) {
                 bitmap = (Bitmap) data.getExtras().get("data");
                 imageView.setImageBitmap(bitmap);
             } else {
                 try {
+                    Uri imageUri = data.getData();
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                    imageView.setImageURI(imageUri);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

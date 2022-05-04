@@ -72,7 +72,17 @@ public class ItemScreen extends AppCompatActivity {
      * Setup for the spinner which picks which categories should be shown.
      */
     private void categoryPickerSetUp() {
-        String[] categoryArray = {"All Categories","One","Two"}; //TODO remove and implement properly
+        //String[] categoryArray = {"All Categories","One","Two"};
+        List<String> categoryArray = new ArrayList<>();
+        try {
+            for(Category cat : FileManager.getCategories()){
+                categoryArray.add(cat.getName());
+            }
+        }catch(Exception e){
+            categoryArray = new ArrayList<>();
+        }
+        categoryArray.add(0, "All Categories");
+
         categorySpinner = findViewById(R.id.spinner2);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, categoryArray);
@@ -153,26 +163,27 @@ public class ItemScreen extends AppCompatActivity {
                 }
             }
         }
-
-        switch (order) {
-            case "Alphabetical reversed":
-                modifiedListOfItems.sort((item, t1) -> {
-                    int comp = item.getDescription().compareToIgnoreCase(t1.getDescription());
-                    return -comp;
-                });
-                break;
-            case "Date added descending":
-                modifiedListOfItems.sort((item, t1) -> {
-                    int comp = item.getDate().compareTo(t1.getDate());
-                    return -comp;
-                });
-                break;
-            case "Alphabetical":
-                modifiedListOfItems.sort((item, t1) -> item.getDescription().compareToIgnoreCase(t1.getDescription()));
-                break;
-            default:
-                modifiedListOfItems.sort(Comparator.comparing(Item::getDate));
-                break;
+        if(modifiedListOfItems!=null){
+            switch (order) {
+                case "Alphabetical reversed":
+                    modifiedListOfItems.sort((item, t1) -> {
+                        int comp = item.getDescription().compareToIgnoreCase(t1.getDescription());
+                        return -comp;
+                    });
+                    break;
+                case "Date added descending":
+                    modifiedListOfItems.sort((item, t1) -> {
+                        int comp = item.getDate().compareTo(t1.getDate());
+                        return -comp;
+                    });
+                    break;
+                case "Alphabetical":
+                    modifiedListOfItems.sort((item, t1) -> item.getDescription().compareToIgnoreCase(t1.getDescription()));
+                    break;
+                default:
+                    modifiedListOfItems.sort(Comparator.comparing(Item::getDate));
+                    break;
+            }
         }
         recyclerViewAdapter.setItemsList(modifiedListOfItems);
         recyclerViewAdapter.notifyDataSetChanged();

@@ -13,16 +13,18 @@ public class Item implements Serializable {
     private String category;
     private Date date;
     private String location;
+    private String stringUri;
 
     /**
      * Creates an Item object.
      * @param string The Item objects associated description.
      */
-    public Item(String string, String category, Date date, String location){
+    public Item(String string, String category, Date date, String location, String stringUri){
         this.description = string;
         this.category = category;
         this.date = date;
         this.location = location;
+        this.stringUri = stringUri;
     }
 
     public String getDescription() {

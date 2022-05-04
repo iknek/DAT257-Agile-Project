@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         FileManager fileManager = new FileManager(this);
 
-        List<Item> items = FileManager.getObject();
+        //List<Item> items = FileManager.getObject();
 
         RecyclerView recyclerView = findViewById(R.id.recentlyAdded);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

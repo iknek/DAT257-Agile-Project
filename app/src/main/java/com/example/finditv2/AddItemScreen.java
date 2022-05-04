@@ -15,7 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class AddItemScreen extends AppCompatActivity {
 
@@ -47,11 +49,19 @@ public class AddItemScreen extends AppCompatActivity {
         addImage = findViewById(R.id.imageButton);
         imageView = findViewById(R.id.imageView2);
 
-        String[] array = {"All Categories","One","Two"}; //TODO remove and implement properly
+        List<String> categoryArray = new ArrayList<>();
+        try {
+            for(Category cat : FileManager.getCategories()){
+                categoryArray.add(cat.getName());
+            }
+        }catch(Exception e){
+            categoryArray = new ArrayList<>();
+        }
+        categoryArray.add(0, "All Categories");
 
         spinner = findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, array);
+                android.R.layout.simple_spinner_item, categoryArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 

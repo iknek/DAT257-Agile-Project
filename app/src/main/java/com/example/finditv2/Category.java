@@ -1,8 +1,9 @@
 package com.example.finditv2;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Category {
+public class Category implements Serializable {
 
     private String name;
 
@@ -18,4 +19,7 @@ public class Category {
 
     }
 
+    public String getName(){
+        return name;
+    }
 }

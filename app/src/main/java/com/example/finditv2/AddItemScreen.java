@@ -59,7 +59,7 @@ public class AddItemScreen extends AppCompatActivity {
         back = findViewById(R.id.button3);
         back.setOnClickListener(view -> finish());
         addItem = findViewById(R.id.button2);
-        locationStored = findViewById(R.id.locationTextInput2);
+       // locationStored = findViewById(R.id.locationTextInput2);
         descriptionBox = findViewById(R.id.descriptionTextInput);
         locationBox = findViewById(R.id.locationTextInput);
         imageView = findViewById(R.id.imageView2);

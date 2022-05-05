@@ -29,6 +29,14 @@ public class Item implements Serializable {
         this.imageUri = null;
     }
 
+    /**
+     * Constructor used when there is a picture of the item
+     * @param string
+     * @param category
+     * @param date
+     * @param location
+     * @param imageUri
+     */
 
 
     public Item(String string, String category, Date date, String location, String imageUri){

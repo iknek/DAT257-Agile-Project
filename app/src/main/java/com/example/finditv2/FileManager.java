@@ -124,13 +124,12 @@ public class FileManager {
      * @return the list of categories.
      */
     public static List<Category> getCategories(){
-        List<Category> categories = null;
+        List<Category> categories = new ArrayList();
         try {
             FileInputStream fis = context.openFileInput("categories.bin");
             ObjectInputStream is = new ObjectInputStream(fis);
             categories = (List<Category>) is.readObject();
             is.close();
-
         } catch (Exception e) {
             e.printStackTrace();
         }

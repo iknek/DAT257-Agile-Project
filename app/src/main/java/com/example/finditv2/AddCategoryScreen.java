@@ -9,6 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.File;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 public class AddCategoryScreen extends AppCompatActivity {
 
     private Button back;
@@ -66,7 +71,8 @@ public class AddCategoryScreen extends AppCompatActivity {
      * @param category = the text from the textView
      */
     private void saveItem(String category){
-        Category cat = new Category(category);
-        FileManager.saveCategory(cat);
+        boolean match = FileManager.getCategories().stream().anyMatch(c-> c.getName().equals(category));
+        if(match) return;
+        FileManager.saveCategory(new Category(category));
     }
 }

@@ -125,7 +125,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             itemName = itemView.findViewById(R.id.textView5);
             imageView = itemView.findViewById(R.id.imageView);
             itemCategory = itemView.findViewById(R.id.textView8);
-            location = itemView.findViewById(R.id.textView5);
+            location = itemView.findViewById(R.id.textView4);
             itemView.setOnClickListener(this);
         }
 

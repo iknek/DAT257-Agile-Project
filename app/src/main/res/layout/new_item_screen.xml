@@ -8,14 +8,23 @@
                                                    android:clickable="true"
                                                    android:focusableInTouchMode="true" android:focusable="true">
     <TextView
-            android:text="Add location"
+            android:text="Add location found:"
             android:layout_width="132dp"
             android:layout_height="20dp" android:id="@+id/textView6"
             android:textAlignment="center" tools:ignore="MissingConstraints"
             app:layout_constraintBottom_toTopOf="@+id/locationTextInput"
-            android:layout_marginBottom="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="139dp" android:layout_marginEnd="140dp"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"/>
+            android:layout_marginBottom="15dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"/>
+    <TextView
+            android:text="Add location stored:"
+            android:layout_width="132dp"
+            android:layout_height="20dp" android:id="@+id/textView7"
+            android:textAlignment="center" tools:ignore="MissingConstraints"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="4dp" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/locationTextInput2" android:layout_marginEnd="275dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/locationTextInput"/>
     <Button
             android:text="Add item"
             android:layout_width="wrap_content"
@@ -39,16 +48,30 @@
             android:layout_marginEnd="85dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5" android:hint="i.e Coat"/>
     <EditText
-            android:layout_width="242dp"
+            android:layout_width="200dp"
             android:layout_height="40dp"
             android:inputType="textPersonName"
             android:ems="10"
             android:id="@+id/locationTextInput"
             android:textAlignment="viewStart" tools:ignore="MissingConstraints"
-            android:layout_marginBottom="316dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="84dp" android:layout_marginEnd="84dp"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.5" android:hint="i.e behind the bench"/>
+            android:layout_marginBottom="404dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:hint="i.e behind the bench" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="105dp" android:layout_marginEnd="105dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <EditText
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/locationTextInput2"
+            android:textAlignment="viewStart" tools:ignore="MissingConstraints"
+            android:layout_marginBottom="308dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:hint="i.e behind the bench" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="105dp" android:layout_marginEnd="105dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView7" app:layout_constraintHorizontal_bias="1.0"/>
     <TextView
             android:text="Add description"
             android:layout_width="132dp"
@@ -58,7 +81,7 @@
 
             android:layout_marginStart="139dp" android:layout_marginEnd="140dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="188dp" app:layout_constraintHorizontal_bias="0.0"/>
+            android:layout_marginTop="180dp" app:layout_constraintHorizontal_bias="0.0"/>
     <Spinner
             android:layout_width="130dp"
             android:layout_height="47dp" android:id="@+id/spinner"

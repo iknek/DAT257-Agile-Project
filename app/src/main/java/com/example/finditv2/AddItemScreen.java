@@ -30,6 +30,8 @@ public class AddItemScreen extends AppCompatActivity {
     private EditText locationBox;
     private Spinner spinner;
 
+    private EditText locationStored;
+
     private ImageView imageView;
     private Button addImage;
     private static final int PICK_IMAGE = 100;
@@ -49,6 +51,7 @@ public class AddItemScreen extends AppCompatActivity {
         back = findViewById(R.id.button3);
         back.setOnClickListener(view -> finish());
         addItem = findViewById(R.id.button2);
+        locationStored = findViewById(R.id.locationTextInput2);
         descriptionBox = findViewById(R.id.descriptionTextInput);
         locationBox = findViewById(R.id.locationTextInput);
         addImage = findViewById(R.id.imageButton);

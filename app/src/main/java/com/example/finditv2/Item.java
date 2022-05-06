@@ -1,11 +1,7 @@
 package com.example.finditv2;
 
-
-import android.net.Uri;
-
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * The Item class represents each lost item to be found by the user.
@@ -31,14 +27,7 @@ public class Item implements Serializable {
 
     /**
      * Constructor used when there is a picture of the item
-     * @param string
-     * @param category
-     * @param date
-     * @param location
-     * @param imageUri
      */
-
-
     public Item(String string, String category, Date date, String location, String imageUri){
         this.description = string;
         this.category = category;

@@ -1,13 +1,8 @@
 package com.example.finditv2;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.ImageDecoder;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,19 +28,14 @@ public class AddItemScreen extends AppCompatActivity {
     private EditText descriptionBox;
     private EditText locationBox;
     private Spinner spinner;
-
-    private EditText locationStored;
-
     private ImageView imageView;
+    private Bitmap bitmap;
+    private Toast toast;
+
     private static final int PICK_IMAGE = 100;
     private static final int CAMERA_PIC_REQUEST = 1337;
-    private String imagePath;
-    private Bitmap bitmap;
-
+    private EditText locationStored;
     private int requestCode;
-
-    //Använder för att identifiera bilderna
-    private Date date;
 
     /**
      * Called when view is opened. Creates view and button listeners within it.
@@ -57,28 +46,33 @@ public class AddItemScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_item_screen);
         back = findViewById(R.id.button3);
-        back.setOnClickListener(view -> finish());
         addItem = findViewById(R.id.button2);
-       // locationStored = findViewById(R.id.locationTextInput2);
         descriptionBox = findViewById(R.id.descriptionTextInput);
         locationBox = findViewById(R.id.locationTextInput);
         imageView = findViewById(R.id.imageView2);
+        spinner = findViewById(R.id.spinner);
         imageView.setImageResource(R.drawable.no_image);
+        //locationStored = findViewById(R.id.locationTextInput2); TODO: Cleanup
         List<String> categoryArray = new ArrayList<>();
-        try {
-            for(Category cat : FileManager.getCategories()){
-                categoryArray.add(cat.getName());
-            }
-        }catch(Exception e){
-            categoryArray = new ArrayList<>();
+        for(Category cat : FileManager.getCategories()){
+            categoryArray.add(cat.getName());
         }
         categoryArray.add(0, "All Categories");
 
-        spinner = findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, categoryArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categoryArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        toast = new Toast(getApplicationContext());
+        toast.setText("Item has been added");
+        listeners();
+    }
+
+    /**
+     * Sets listeners for buttons/other input fields.
+     */
+    private void listeners(){
+        back.setOnClickListener(view -> finish());
 
         addItem.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -138,22 +132,20 @@ public class AddItemScreen extends AppCompatActivity {
      * @param location = the location of the item
      */
     private void saveItem(String description, String location){
-        if(!description.equals("")){
+        if(!description.isEmpty()){
             String currentCategory = spinner.getSelectedItem().toString();
-            date = new Date(System.currentTimeMillis());
+            //Använder för att identifiera bilderna
+            Date date = new Date(System.currentTimeMillis());
             Item item;
             if (bitmap != null) {
-                imagePath = FileManager.saveToInternalStorage(bitmap, date.toString());
+                String imagePath = FileManager.saveToInternalStorage(bitmap, date.toString());
                 item = new Item(description, currentCategory, date, location, imagePath);
-
             } else {
                 item = new Item(description, currentCategory, date, location);
             }
             FileManager.saveObject(item);
             bitmap = null;
             imageView.setImageResource(R.drawable.no_image);
-            Toast toast = new Toast(getApplicationContext());
-            toast.setText("Item has been added");
             toast.show();
         }
     }
@@ -172,7 +164,7 @@ public class AddItemScreen extends AppCompatActivity {
     /**
      * Retrieves the image from either the gallery or directly via the camera app.
      */
-    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+    private final ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
             Intent data = result.getData();

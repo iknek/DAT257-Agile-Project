@@ -15,15 +15,11 @@ public class AddCategoryScreen extends AppCompatActivity {
     private Button addCategory;
     private EditText descriptionBox;
 
-    private SnackBarMaker maker;
-
-
     /**
      * Method which is called when the add category page is started.
      */
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        this.maker = new SnackBarMaker();
         setContentView(R.layout.add_category_screen);
         back = findViewById(R.id.button3);
         back.setOnClickListener(view -> finish());
@@ -35,13 +31,10 @@ public class AddCategoryScreen extends AppCompatActivity {
                 grabDescriptionText();
             }
         });
-
         descriptionBox.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    hideKeyboard(v);
-                }
+                if (!hasFocus) hideKeyboard(v);
             }
         });
     }
@@ -59,31 +52,29 @@ public class AddCategoryScreen extends AppCompatActivity {
      * Takes the text from the text view and saves it into the local files.
      */
     private void grabDescriptionText(){
-        String description = descriptionBox.getText().toString();
-        saveItem(description);
+        saveItem(descriptionBox.getText().toString());
         descriptionBox.getText().clear();
     }
 
     /**
-     * Recieves the text and creates a category which is then saved in local files.
+     * Recieves the text and creates a category which is then saved in local files, if category doesn't exist and textfield isn't empty.
      * @param category = the text from the textView
      */
-    //TODO: Center snackbar text
     private void saveItem(String category){
+        Toast toast = new Toast(getApplicationContext());
         if(category.isEmpty()){
-            Toast toast = new Toast(getApplicationContext());
             toast.setText("Category Name Must Be Specified!");
             toast.show();
             return;
         }
-        boolean match = FileManager.getCategories().stream().anyMatch(c-> c.getName().equals(category));
+        boolean match = FileManager.getCategories().stream().anyMatch(cat-> cat.getName().equals(category));
         if(match){
-            Toast toast = new Toast(getApplicationContext());
             toast.setText("Category Already Exists!");
             toast.show();
             return;
         }
         FileManager.saveCategory(new Category(category));
+        toast.setText("Category Added!");
+        toast.show();
     }
-
 }

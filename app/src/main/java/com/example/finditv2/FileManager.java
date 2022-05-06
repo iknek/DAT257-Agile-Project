@@ -4,23 +4,49 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.widget.ImageView;
-
 import java.io.*;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileManager {
 
-    private static Context context;
+    private static Context context; //TODO: Fix
 
     /**
      * FileManager constructor.
      * @param context = app context
      */
     public FileManager(Context context) {
-        this.context = context;
+        FileManager.context = context;
+    }
+
+    /**
+     * Removes duplicate code for making a list with objects.
+     * @return list.
+     */
+    private static List<?> makeItemList(Boolean isCat){
+        List<?> currentItems = new ArrayList<>();
+        if(isCat) currentItems = getCategories();
+        else currentItems = getObject();
+
+        return currentItems;
+    }
+
+    private static void makeFOS(String string, List<?> currentItems) throws IOException {
+        FileOutputStream fos = context.openFileOutput(string, Context.MODE_PRIVATE);
+        ObjectOutputStream os = new ObjectOutputStream(fos);
+        os.writeObject(currentItems);
+        os.close();
+    }
+
+    private static List<?> makeFIS(String string) throws IOException, ClassNotFoundException {
+        FileInputStream fis = context.openFileInput(string);
+        ObjectInputStream is = new ObjectInputStream(fis);
+        List<?> list = (List<?>) is.readObject();
+        is.close();
+        return list;
     }
 
     /**
@@ -29,20 +55,46 @@ public class FileManager {
      */
     public static void saveObject(Item item){
         try {
-            List<Item> currentItems = getObject();
-            if(currentItems == null){
-                currentItems = new ArrayList<>();
-            }
-
+            List<Item> currentItems = (List<Item>) makeItemList(false);
             currentItems.add(item);
-            FileOutputStream fos = context.openFileOutput("data.bin", Context.MODE_PRIVATE);
-            ObjectOutputStream os = new ObjectOutputStream(fos);
-            os.writeObject(currentItems);
-            os.close();
-
+            makeFOS("data.bin", currentItems);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Saves a new category into the local files(categories.bin)
+     */
+    public static void saveCategory(Category category){
+        try {
+            List<Category> currentItems = (List<Category>) makeItemList(true);
+            currentItems.add(category);
+            makeFOS("categories.bin", currentItems);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Experiment in having only one method for getting objects of any type. Works if an item is passed ( see attached code).
+     * for (int i = 0; i < FileManager.getFromMem(item).size(); i++) {
+     *         System.out.println(FileManager.getFromMem(item).get(i).getDescription());
+     *     }
+     */
+    public static <T> List<T> getFromMem(T object){
+        List<T> list = new ArrayList<>();
+        String path = "";
+        if(object.getClass().equals(Item.class)){
+            path = "data.bin";
+        }
+        else path = "categories.bin";
+        try {
+            list = (List<T>) makeFIS(path);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     /**
@@ -50,28 +102,27 @@ public class FileManager {
      * @return item
      */
     public static List<Item> getObject(){
-        List<Item> item = null;
+        List<Item> item = new ArrayList<>();
         try {
-            FileInputStream fis = context.openFileInput("data.bin");
-            ObjectInputStream is = new ObjectInputStream(fis);
-            item = (List<Item>) is.readObject();
-            is.close();
-
+            item = (List<Item>) makeFIS("data.bin");
         } catch (Exception e) {
             e.printStackTrace();
         }
         return item;
     }
 
-    public static void removeObjects(){
-
-        try{
-            new FileOutputStream("data.bin").close();
-        }
-        catch (Exception e){
+    /**
+     * Pulls the list of categories which the app uses from categories.bin
+     * @return the list of categories.
+     */
+    public static List<Category> getCategories(){
+        List<Category> categories = new ArrayList<>();
+        try {
+            categories = (List<Category>) makeFIS("categories.bin");
+        } catch (Exception e) {
             e.printStackTrace();
-
         }
+        return categories;
     }
 
     /**
@@ -80,60 +131,12 @@ public class FileManager {
      */
     public static void removeItem(Item selectedItem) {
         try {
-            List<Item> currentItems = getObject();
-            if(currentItems == null){
-                currentItems = new ArrayList<>();
-            }
-
+            List<Item> currentItems = (List<Item>) makeItemList(false);
             currentItems.removeIf(fileItem -> fileItem.equals(selectedItem));
-            FileOutputStream fos = context.openFileOutput("data.bin", Context.MODE_PRIVATE);
-            ObjectOutputStream os = new ObjectOutputStream(fos);
-            os.writeObject(currentItems);
-            os.close();
-            System.out.println(currentItems);
-
+            makeFOS("data.bin", currentItems);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Saves a new category into the local files(categories.bin)
-     * @param category
-     */
-    public static void saveCategory(Category category){
-        try {
-            List<Category> currentItems = getCategories();
-            if(currentItems == null){
-                currentItems = new ArrayList<>();
-            }
-
-            currentItems.add(category);
-            FileOutputStream fos = context.openFileOutput("categories.bin", Context.MODE_PRIVATE);
-            ObjectOutputStream os = new ObjectOutputStream(fos);
-            os.writeObject(currentItems);
-            os.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Pulls the list of categories which the app uses from categories.bin
-     * @return the list of categories.
-     */
-    public static List<Category> getCategories(){
-        List<Category> categories = new ArrayList();
-        try {
-            FileInputStream fis = context.openFileInput("categories.bin");
-            ObjectInputStream is = new ObjectInputStream(fis);
-            categories = (List<Category>) is.readObject();
-            is.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return categories;
     }
 
     public static String saveToInternalStorage(Bitmap bitmapImage, String imageName){
@@ -157,8 +160,7 @@ public class FileManager {
         return filePath.getAbsolutePath();
     }
 
-    public static Bitmap loadImageFromStorage(String path)
-    {
+    public static Bitmap loadImageFromStorage(String path) {
         Bitmap bitmap = null;
         try {
             if (path != null) {
@@ -166,8 +168,7 @@ public class FileManager {
                 bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
             }
         }
-        catch (FileNotFoundException e)
-        {
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         return bitmap;

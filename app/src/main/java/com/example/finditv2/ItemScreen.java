@@ -29,12 +29,7 @@ public class ItemScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-                items = FileManager.getObject();
-            }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        items = FileManager.getObject();
         setContentView(R.layout.view_items);
         //showItems = findViewById(R.id.item_list);
         recyclerViewSetUp();
@@ -51,8 +46,7 @@ public class ItemScreen extends AppCompatActivity {
         String[] itemOrderArray = {"Date added ascending","Date added descending","Alphabetical", "Alphabetical reversed"}; //TODO remove and implement properly
 
         itemOrderSpinner = findViewById(R.id.spinner3);
-        ArrayAdapter<String> orderAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, itemOrderArray);
+        ArrayAdapter<String> orderAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, itemOrderArray);
         orderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         itemOrderSpinner.setAdapter(orderAdapter);
         itemOrderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -60,7 +54,6 @@ public class ItemScreen extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 modifyItemsToBeDisplayed(categorySpinner.getSelectedItem().toString(), itemOrderSpinner.getSelectedItem().toString());
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 modifyItemsToBeDisplayed(categorySpinner.getSelectedItem().toString(), "Date added ascending");
@@ -72,20 +65,14 @@ public class ItemScreen extends AppCompatActivity {
      * Setup for the spinner which picks which categories should be shown.
      */
     private void categoryPickerSetUp() {
-        //String[] categoryArray = {"All Categories","One","Two"};
         List<String> categoryArray = new ArrayList<>();
-        try {
-            for(Category cat : FileManager.getCategories()){
-                categoryArray.add(cat.getName());
-            }
-        }catch(Exception e){
-            categoryArray = new ArrayList<>();
+        for(Category cat : FileManager.getCategories()){
+            categoryArray.add(cat.getName());
         }
         categoryArray.add(0, "All Categories");
 
         categorySpinner = findViewById(R.id.spinner2);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, categoryArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
 
@@ -94,7 +81,6 @@ public class ItemScreen extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 modifyItemsToBeDisplayed(categorySpinner.getSelectedItem().toString(), itemOrderSpinner.getSelectedItem().toString());
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 modifyItemsToBeDisplayed("All Categories", itemOrderSpinner.getSelectedItem().toString());
@@ -141,7 +127,6 @@ public class ItemScreen extends AppCompatActivity {
      * @return The list of items
      */
     protected void modifyItemsToBeDisplayed (String category, String order) {
-
         /*Comparator<Item> dateAscending = Comparator.comparing(Item::getDate);
         Comparator<Item> dateDescending = (item, t1) -> {
             int comp = item.getDate().compareTo(t1.getDate());
@@ -152,38 +137,35 @@ public class ItemScreen extends AppCompatActivity {
             int comp = item.getDescription().compareToIgnoreCase(t1.getDescription());
             return -comp;
         };*/
-
         if(category.equals("All Categories")) {
             modifiedListOfItems = items;
         } else {
-        modifiedListOfItems = new ArrayList<>();
+            modifiedListOfItems = new ArrayList<>();
             for (Item value : items) {
                 if (value.getCategory().equals(category)) {
                     modifiedListOfItems.add(value);
                 }
             }
         }
-        if(modifiedListOfItems!=null){
-            switch (order) {
-                case "Alphabetical reversed":
-                    modifiedListOfItems.sort((item, t1) -> {
-                        int comp = item.getDescription().compareToIgnoreCase(t1.getDescription());
-                        return -comp;
-                    });
-                    break;
-                case "Date added descending":
-                    modifiedListOfItems.sort((item, t1) -> {
-                        int comp = item.getDate().compareTo(t1.getDate());
-                        return -comp;
-                    });
-                    break;
-                case "Alphabetical":
-                    modifiedListOfItems.sort((item, t1) -> item.getDescription().compareToIgnoreCase(t1.getDescription()));
-                    break;
-                default:
-                    modifiedListOfItems.sort(Comparator.comparing(Item::getDate));
-                    break;
-            }
+        switch (order) {
+            case "Alphabetical reversed":
+                modifiedListOfItems.sort((item, t1) -> {
+                    int comp = item.getDescription().compareToIgnoreCase(t1.getDescription());
+                    return -comp;
+                });
+                break;
+            case "Date added descending":
+                modifiedListOfItems.sort((item, t1) -> {
+                    int comp = item.getDate().compareTo(t1.getDate());
+                    return -comp;
+                });
+                break;
+            case "Alphabetical":
+                modifiedListOfItems.sort((item, t1) -> item.getDescription().compareToIgnoreCase(t1.getDescription()));
+                break;
+            default:
+                modifiedListOfItems.sort(Comparator.comparing(Item::getDate));
+                break;
         }
         recyclerViewAdapter.setItemsList(modifiedListOfItems);
         recyclerViewAdapter.notifyDataSetChanged();

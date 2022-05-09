@@ -2,11 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="330"
+                                                   android:layout_width="330dp"
                                                    android:background="@drawable/gradient_drawable"
                                                    android:layout_marginBottom="14dp"
                                                    android:layout_marginTop="0dp"
-                                                   android:layout_height="400">
+                                                   android:layout_height="400dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"

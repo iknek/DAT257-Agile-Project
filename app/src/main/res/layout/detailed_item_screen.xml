@@ -8,11 +8,108 @@
         android:background="@drawable/gradient_drawable"
 >
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@drawable/img" android:id="@+id/imageView5"
+            android:layout_width="0dp"
+            android:layout_height="0dp" app:srcCompat="@drawable/img" android:id="@+id/imageView5"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="72dp" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="61dp"/>
+            android:layout_marginStart="70dp" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="61dp" android:layout_marginEnd="70dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/view3"/>
+    <Button
+            android:text="Remove item"
+            android:layout_width="142dp"
+            android:layout_height="51dp" android:id="@+id/button4"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="57dp" android:layout_marginEnd="52dp"
+            app:layout_constraintEnd_toEndOf="parent" android:background="#F44336"
+            app:backgroundTint="#F44336"/>
+    <View
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:background="#8D878686"
+            android:id="@+id/view3"
+            android:backgroundTint="#A3FFFFFF"
+            android:layout_marginBottom="24dp" app:layout_constraintBottom_toTopOf="@+id/button4"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="50dp" android:layout_marginEnd="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="49dp" app:layout_constraintTop_toBottomOf="@+id/imageView5"/>
+
+    <TextView
+            android:text="Time added"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView5"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="312dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="72dp"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView9"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="72dp" android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView10"/>
+    <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#878686"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="60dp" android:layout_marginEnd="60dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="1.0"
+            android:id="@+id/view2" android:layout_marginTop="88dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"/>
+    <TextView
+            android:text="Description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView13"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="456dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="72dp"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView12"
+            android:layout_marginTop="160dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="72dp"/>
+    <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#878686"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="60dp" android:layout_marginEnd="60dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="1.0"
+            android:id="@+id/view7" android:layout_marginTop="168dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"/>
+    <TextView
+            android:text="Location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView10"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="72dp"
+            android:layout_marginTop="12dp" app:layout_constraintTop_toBottomOf="@+id/view"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView4"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="72dp"/>
+    <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#878686"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="60dp" android:layout_marginEnd="60dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="1.0"
+            android:id="@+id/view" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"/>
+    <Button
+            android:text="Edit Item"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/button8"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="49dp"
+            app:layout_constraintEnd_toStartOf="@+id/button4" android:layout_marginEnd="60dp"
+            android:layout_marginTop="30dp" app:layout_constraintTop_toBottomOf="@+id/view3"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="54dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

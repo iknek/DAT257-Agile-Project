@@ -111,8 +111,7 @@ public class ItemScreen extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(getApplicationContext(), DetailedItemView.class);
                 startActivity(intent);
-                //FileManager.removeItem(recyclerViewAdapter.getItem(position));
-                //recyclerViewAdapter.removeItem(position);
+                DetailedItemView.giveItem(recyclerViewAdapter.getItem(position));
             }
         };
         recyclerView.addOnItemTouchListener(clickListener);

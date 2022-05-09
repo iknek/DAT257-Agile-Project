@@ -99,7 +99,6 @@ public class FileManager {
 
     /**
      * Gets the most recently added object from the data.bin file.
-     * @return item
      */
     public static List<Item> getObject(){
         List<Item> item = new ArrayList<>();
@@ -148,14 +147,9 @@ public class FileManager {
         try {
             fos = new FileOutputStream(filePath);
             bitmapImage.compress(Bitmap.CompressFormat.JPEG, 20, fos);
+            fos.close();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
         return filePath.getAbsolutePath();
     }

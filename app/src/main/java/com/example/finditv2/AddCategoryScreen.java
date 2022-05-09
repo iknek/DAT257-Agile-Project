@@ -25,7 +25,6 @@ public class AddCategoryScreen extends AppCompatActivity {
         back.setOnClickListener(view -> finish());
         addCategory = findViewById(R.id.button7);
         descriptionBox = findViewById(R.id.categoryTextInput);
-
         addCategory.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 grabDescriptionText();

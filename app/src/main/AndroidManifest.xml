@@ -28,6 +28,9 @@
         <activity
                 android:name=".AddCategoryScreen"
                 android:label="AddCategoryScreen"/>
+        <activity
+                android:name=".DetailedItemView"
+                android:label="DetailedItemView"/>
 
     </application>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

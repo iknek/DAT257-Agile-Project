@@ -144,18 +144,12 @@ public class FileManager {
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
         File filePath = new File(directory,imageName);
 
-        FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream(filePath);
+            FileOutputStream fos = new FileOutputStream(filePath);
             bitmapImage.compress(Bitmap.CompressFormat.JPEG, 20, fos);
+            fos.close();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
         return filePath.getAbsolutePath();
     }
@@ -163,10 +157,7 @@ public class FileManager {
     public static Bitmap loadImageFromStorage(String path) {
         Bitmap bitmap = null;
         try {
-            if (path != null) {
-                File file = new File(path);
-                bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-            }
+            bitmap = BitmapFactory.decodeStream(new FileInputStream(path));
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -58,14 +58,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         if(position<items.size()){
             String item = items.get(position).getDescription();
             String category = items.get(position).getCategory();
+
             holder.itemName.setText(item);
             holder.itemCategory.setText(category);
             holder.location.setText(items.get(position).getLocation());
+
             if (items.get(position).getImageUri() != null) {
                 holder.imageView.setImageBitmap(FileManager.loadImageFromStorage(items.get(position).getImageUri()));
-            } else {
-                holder.imageView.setImageResource(R.drawable.no_image);
-            }
+            } else holder.imageView.setImageResource(R.drawable.no_image);
+
             holder.bind(items.get(position), mClickListener);
         }
     }

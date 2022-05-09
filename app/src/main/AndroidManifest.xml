@@ -10,13 +10,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.FIndITv2">
         <activity
-                android:name=".MainActivity"
-                android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+                android:name=".MainActivity">
         </activity>
 
         <activity
@@ -31,6 +25,16 @@
         <activity
                 android:name=".DetailedItemView"
                 android:label="DetailedItemView"/>
+        <activity
+                android:name=".CategoryScreen"
+                android:label="CategoryScreen"
+                android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
+        </activity>
 
     </application>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

@@ -1,5 +1,6 @@
 package com.example.finditv2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -102,18 +103,16 @@ public class ItemScreen extends AppCompatActivity {
                 return false;
             }
             @Override
-            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-
-            }
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {            }
             @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {            }
 
             @Override
             public void onItemClick(View view, int position) {
-                FileManager.removeItem(recyclerViewAdapter.getItem(position));
-                recyclerViewAdapter.removeItem(position);
+                Intent intent = new Intent(getApplicationContext(), DetailedItemView.class);
+                startActivity(intent);
+                //FileManager.removeItem(recyclerViewAdapter.getItem(position));
+                //recyclerViewAdapter.removeItem(position);
             }
         };
         recyclerView.addOnItemTouchListener(clickListener);
@@ -127,25 +126,12 @@ public class ItemScreen extends AppCompatActivity {
      * @return The list of items
      */
     protected void modifyItemsToBeDisplayed (String category, String order) {
-        /*Comparator<Item> dateAscending = Comparator.comparing(Item::getDate);
-        Comparator<Item> dateDescending = (item, t1) -> {
-            int comp = item.getDate().compareTo(t1.getDate());
-            return -comp;
-        };
-        Comparator<Item> alphabetical = (item, t1) -> item.getDescription().compareToIgnoreCase(t1.getDescription());
-        Comparator<Item> alphabeticalReversed = (item, t1) -> {
-            int comp = item.getDescription().compareToIgnoreCase(t1.getDescription());
-            return -comp;
-        };*/
+
         if(category.equals("All Categories")) {
             modifiedListOfItems = items;
         } else {
-            modifiedListOfItems = new ArrayList<>();
-            for (Item value : items) {
-                if (value.getCategory().equals(category)) {
-                    modifiedListOfItems.add(value);
-                }
-            }
+            modifiedListOfItems = new ArrayList<>(items);
+            modifiedListOfItems = (List<Item>) modifiedListOfItems.stream().filter(i -> i.getCategory().equals(category));
         }
         switch (order) {
             case "Alphabetical reversed":

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ItemScreen extends AppCompatActivity {
     private TextView showItems;
@@ -22,7 +23,6 @@ public class ItemScreen extends AppCompatActivity {
     private RecyclerViewAdapter recyclerViewAdapter;
     private List<Item> items;
     private List<Item> modifiedListOfItems;
-
     /**
      * Creates a new activity with the layout "item_screen" to display the lost items.
      * @param savedInstanceState
@@ -32,12 +32,15 @@ public class ItemScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         items = FileManager.getObject();
         setContentView(R.layout.view_items);
-        //showItems = findViewById(R.id.item_list);
         recyclerViewSetUp();
         backButton = findViewById(R.id.button5);
         backButton.setOnClickListener(view -> finish());
         categoryPickerSetUp();
         OrderPickerSetUp();
+        Bundle bundle = getIntent().getExtras();
+        if (bundle.getString("pre_selected_category") != null) {
+            modifyItemsToBeDisplayed(bundle.getString("pre_selected_category"), "no order");
+        }
     }
 
     /**
@@ -56,9 +59,7 @@ public class ItemScreen extends AppCompatActivity {
                 modifyItemsToBeDisplayed(categorySpinner.getSelectedItem().toString(), itemOrderSpinner.getSelectedItem().toString());
             }
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                modifyItemsToBeDisplayed(categorySpinner.getSelectedItem().toString(), "Date added ascending");
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
     }
 
@@ -76,16 +77,13 @@ public class ItemScreen extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
-
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 modifyItemsToBeDisplayed(categorySpinner.getSelectedItem().toString(), itemOrderSpinner.getSelectedItem().toString());
             }
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                modifyItemsToBeDisplayed("All Categories", itemOrderSpinner.getSelectedItem().toString());
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
     }
 
@@ -125,12 +123,10 @@ public class ItemScreen extends AppCompatActivity {
      * @return The list of items
      */
     protected void modifyItemsToBeDisplayed (String category, String order) {
-
         if(category.equals("All Categories")) {
             modifiedListOfItems = items;
         } else {
-            modifiedListOfItems = new ArrayList<>(items);
-            modifiedListOfItems = (List<Item>) modifiedListOfItems.stream().filter(i -> i.getCategory().equals(category));
+            modifiedListOfItems = items.stream().filter(item -> item.getCategory().equals(category)).collect(Collectors.toList());
         }
         switch (order) {
             case "Alphabetical reversed":

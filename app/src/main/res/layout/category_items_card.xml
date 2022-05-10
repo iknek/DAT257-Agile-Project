@@ -7,16 +7,31 @@
         app:layout_constraintStart_toStartOf="parent"
         android:elevation="8dp"
         android:layout_margin="8dp">
-    <ImageView
-            android:layout_gravity="top"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp"
-            android:id="@+id/imageView3" tools:ignore="ImageContrastCheck" tools:srcCompat="@drawable/no_image"/>
-    <TextView
-            android:layout_gravity="bottom|center_horizontal"
-            android:text="Categorinamn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView7"/>
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                       android:layout_height="match_parent">
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:id="@+id/imageView3" tools:ignore="ImageContrastCheck" tools:srcCompat="@drawable/no_image"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+                android:text="Categorinamn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView7"
+                app:layout_constraintTop_toBottomOf="@id/imageView3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+                android:text="Items: 420"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView11"
+                app:layout_constraintTop_toBottomOf="@id/textView7"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
 

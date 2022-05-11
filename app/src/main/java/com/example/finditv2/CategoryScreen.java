@@ -29,7 +29,8 @@ public class CategoryScreen extends AppCompatActivity {
         categoryRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         categoryRecyclerView.setAdapter(recyclerViewAdapter);
 
-
+        categories = FileManager.getCategories();
+        categories.add(0, new Category("All Categories"));
 
         bottomNavigation = findViewById(R.id.bottom_navigation1);
         bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -37,7 +38,6 @@ public class CategoryScreen extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.categories:
-
                         break;
                     case R.id.main_screen:
                         Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
@@ -56,21 +56,15 @@ public class CategoryScreen extends AppCompatActivity {
                 return false;
             }
         });
+
     }
 
-    //callas när aktiviteten startas eller när man kommer tillbaka till activityn, gjorde såhär nu för att updatera listan, kanske finns bättre sätt
+    /**
+     * When user goes back to this view, it updates the cards.
+     */
     @Override
     protected void onResume() {
         super.onResume();
-        //kan göra detta annorlunda senare ev.
-        categories = FileManager.getCategories();
-        if(categories.size() == 0) {
-            categories.add(new Category("All Categories"));
-        } else {
-            Category firstCategory = categories.get(0);
-            categories.add(0, new Category("All Categories"));
-            categories.add(firstCategory);
-        }
         recyclerViewAdapter.setCategories(categories);
         //Fixa så den inte uppdaterar alla element
         recyclerViewAdapter.notifyDataSetChanged();

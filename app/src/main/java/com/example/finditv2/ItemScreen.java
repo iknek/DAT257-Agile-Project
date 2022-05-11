@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ItemScreen extends AppCompatActivity {
-    private TextView showItems;
     private Button backButton;
     private Spinner categorySpinner;
     private Spinner itemOrderSpinner;
@@ -150,5 +149,12 @@ public class ItemScreen extends AppCompatActivity {
         }
         recyclerViewAdapter.setItemsList(modifiedListOfItems);
         recyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        items = FileManager.getObject();
+        modifyItemsToBeDisplayed(categorySpinner.getSelectedItem().toString(), itemOrderSpinner.getSelectedItem().toString());
     }
 }

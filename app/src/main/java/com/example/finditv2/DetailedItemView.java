@@ -21,9 +21,7 @@ public class DetailedItemView extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //TODO crashes when the item has no specific image.
         //TODO connect edit button
-        //TODO update the recyclerView in item view when going back
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detailed_item_screen);
 
@@ -42,7 +40,11 @@ public class DetailedItemView extends AppCompatActivity {
 
     private void pictureSetUp() {
         pic = findViewById(R.id.imageView5);
-        pic.setImageBitmap(FileManager.loadImageFromStorage(item.getImageUri()));
+        if(item.getImageUri() != null){
+            pic.setImageBitmap(FileManager.loadImageFromStorage(item.getImageUri()));
+        }else{
+            pic.setImageResource(R.drawable.no_image);
+        }
     }
 
     private void textViewSetup(){

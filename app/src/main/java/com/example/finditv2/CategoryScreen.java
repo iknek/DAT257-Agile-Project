@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CategoryScreen extends AppCompatActivity {
@@ -56,7 +58,6 @@ public class CategoryScreen extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 
     /**
@@ -66,7 +67,7 @@ public class CategoryScreen extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         recyclerViewAdapter.setCategories(categories);
-        //Fixa så den inte uppdaterar alla element
+        recyclerViewAdapter.setCount(getItemCount());
         recyclerViewAdapter.notifyDataSetChanged();
     }
 
@@ -76,5 +77,15 @@ public class CategoryScreen extends AppCompatActivity {
         startActivity(intent);
         //ta bort default animation vid byte av activity, kan göras på snyggare sätt
         overridePendingTransition(0, 0);
+    }
+
+    private HashMap<String,Integer> getItemCount () {
+        List<Item> items = FileManager.getObject();
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        for (Item item : items) {
+            hashMap.merge(item.getCategory(), 1, Integer::sum);
+        }
+        hashMap.put(categories.get(0).getName(),items.size());
+        return hashMap;
     }
 }

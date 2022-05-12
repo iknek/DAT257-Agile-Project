@@ -7,12 +7,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.HashMap;
 import java.util.List;
 
 public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRecyclerViewAdapter.ViewHolder> {
 
     CategoryScreen categoryScreen;
     List<Category> categories;
+    HashMap<String,Integer> hashMap;
+
 
     public CategoryRecyclerViewAdapter(CategoryScreen categoryScreen) {
         this.categoryScreen = categoryScreen;
@@ -27,9 +31,16 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
 
     @Override
     public void onBindViewHolder(@NonNull CategoryRecyclerViewAdapter.ViewHolder holder, int position) {
-        holder.textView.setText(categories.get(position).getName());
+        holder.name.setText(categories.get(position).getName());
         holder.imageView.setImageResource(R.drawable.no_image);
         holder.itemView.setOnClickListener(view -> categoryScreen.changeActivity(position));
+        Integer count = hashMap.get(categories.get(position).getName());
+        if (count != null) {
+            holder.count.setText(String.valueOf(hashMap.get(categories.get(position).getName())));
+        } else {
+            holder.count.setText("0");
+        }
+
     }
 
     @Override
@@ -40,6 +51,9 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
     public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
+    public void setCount(HashMap<String,Integer> hashMap) {
+        this.hashMap = hashMap;
+    }
 
     // Den här classen representerar elementen i recycler viewen
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -47,7 +61,8 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
             super(itemView);
         }
         ImageView imageView = itemView.findViewById(R.id.imageView3);
-        TextView textView = itemView.findViewById(R.id.textView7);
+        TextView name = itemView.findViewById(R.id.textView7);
+        TextView count = itemView.findViewById(R.id.textView11);
     }
 }
 

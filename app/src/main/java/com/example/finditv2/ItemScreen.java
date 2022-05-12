@@ -37,8 +37,10 @@ public class ItemScreen extends AppCompatActivity {
         categoryPickerSetUp();
         OrderPickerSetUp();
         Bundle bundle = getIntent().getExtras();
-        if (bundle.getString("pre_selected_category") != null) {
-            modifyItemsToBeDisplayed(bundle.getString("pre_selected_category"), "no order");
+        if (bundle != null) {
+            if (bundle.getString("pre_selected_category") != null) {
+                modifyItemsToBeDisplayed(bundle.getString("pre_selected_category"), "no order");
+            }
         }
     }
 

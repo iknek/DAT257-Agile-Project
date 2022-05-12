@@ -36,9 +36,9 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
         holder.itemView.setOnClickListener(view -> categoryScreen.changeActivity(position));
         Integer count = hashMap.get(categories.get(position).getName());
         if (count != null) {
-            holder.count.setText(String.valueOf(hashMap.get(categories.get(position).getName())));
+            holder.count.setText("Items: " + String.valueOf(hashMap.get(categories.get(position).getName())));
         } else {
-            holder.count.setText("0");
+            holder.count.setText("Items: 0");
         }
 
     }

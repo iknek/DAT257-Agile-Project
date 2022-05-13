@@ -1,1 +1,16 @@
+What do I want to learn or understand better?
+It has come to our attention that the way we have constructed the project is not ideal when using android studio. We have made every screen into its own intent. However,
+ideally we would use fragments instead. This would mean that we can certain objects constantly showing, and also spare some memory leak. So that is what I would like to 
+learn next sprint, how to use fragments.
 
+How can I help someone else, or the entire team, to learn something new?
+As mentioned previously, we will try to figure out how fragments work, and if they are nessecary for the project. I believe this will a collaborative effort where 
+everyone in the team helps each other learn how it works.
+
+What is my contribution towards the team's use of scrum?
+This week I was back to being a team member. I participated in meetings and did what was set out for our group.
+
+What is my contribution towards the team's deliveries?
+This week I contributed with the detailed item view. As well as the removal and editing function.
+
+Overall learning objective would be to learn how to use fragments within android studio.

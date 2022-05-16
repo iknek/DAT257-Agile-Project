@@ -1,19 +1,25 @@
 package com.example.finditv2;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,8 +27,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AddItemScreen extends AppCompatActivity {
-
+public class AddItemScreen extends Fragment {
+    public AddItemScreen (Context categoryScreen) {
+        this.categoryScreen = categoryScreen;
+    }
+    private Context categoryScreen;
     private Button addItem;
     private Button back;
     private EditText descriptionBox;
@@ -37,20 +46,16 @@ public class AddItemScreen extends AppCompatActivity {
     private EditText locationStored;
     private int requestCode;
 
-    /**
-     * Called when view is opened. Creates view and button listeners within it.
-     * @param savedInstanceState = earlier saved instance data
-     */
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_item_screen);
-        back = findViewById(R.id.button3);
-        addItem = findViewById(R.id.button2);
-        descriptionBox = findViewById(R.id.descriptionTextInput);
-        locationBox = findViewById(R.id.locationTextInput);
-        imageView = findViewById(R.id.imageView2);
-        spinner = findViewById(R.id.spinner);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.new_item_screen, container,false);
+        back = view.findViewById(R.id.button3);
+        addItem = view.findViewById(R.id.button2);
+        descriptionBox = view.findViewById(R.id.descriptionTextInput);
+        locationBox = view.findViewById(R.id.locationTextInput);
+        imageView = view.findViewById(R.id.imageView2);
+        spinner = view.findViewById(R.id.spinner);
         imageView.setImageResource(R.drawable.no_image);
         //locationStored = findViewById(R.id.locationTextInput2); TODO: Cleanup
         List<String> categoryArray = new ArrayList<>();
@@ -59,20 +64,26 @@ public class AddItemScreen extends AppCompatActivity {
         }
         categoryArray.add(0, "All Categories");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categoryArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(categoryScreen, android.R.layout.simple_spinner_item, categoryArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        toast = new Toast(getApplicationContext());
+        toast = new Toast(getContext());
         toast.setText("Item has been added");
         listeners();
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
     /**
      * Sets listeners for buttons/other input fields.
      */
     private void listeners(){
-        back.setOnClickListener(view -> finish());
 
         addItem.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -111,8 +122,8 @@ public class AddItemScreen extends AppCompatActivity {
      * @param view
      */
     private void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+       // InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+       // inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     /**
@@ -174,7 +185,7 @@ public class AddItemScreen extends AppCompatActivity {
             } else {
                 try {
                     Uri imageUri = data.getData();
-                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                    bitmap = MediaStore.Images.Media.getBitmap(categoryScreen.getContentResolver(), imageUri);
                     imageView.setImageURI(imageUri);
                 } catch (IOException e) {
                     e.printStackTrace();

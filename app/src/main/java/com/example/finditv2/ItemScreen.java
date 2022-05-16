@@ -1,12 +1,17 @@
 package com.example.finditv2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,33 +20,36 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ItemScreen extends AppCompatActivity {
-    private Button backButton;
-    private Spinner categorySpinner;
+public class ItemScreen extends Fragment {
+    public ItemScreen (Context categoryScreen) {
+        this.categoryScreen = categoryScreen;
+    }
+    private Context categoryScreen;
     private Spinner itemOrderSpinner;
     private RecyclerViewAdapter recyclerViewAdapter;
     private List<Item> items;
     private List<Item> modifiedListOfItems;
-    /**
-     * Creates a new activity with the layout "item_screen" to display the lost items.
-     * @param savedInstanceState
-     */
+    private RecyclerView recyclerView;
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.view_items,container,false);
         items = FileManager.getObject();
-        setContentView(R.layout.view_items);
-        recyclerViewSetUp();
-        backButton = findViewById(R.id.button5);
-        backButton.setOnClickListener(view -> finish());
-        categoryPickerSetUp();
+        itemOrderSpinner = view.findViewById(R.id.spinner3);
+        recyclerView = view.findViewById(R.id.recentlyAdded);
         OrderPickerSetUp();
-        Bundle bundle = getIntent().getExtras();
+        recyclerViewSetUp();
+        /*
+        Bundle bundle = cagetIntent().getExtras();
         if (bundle != null) {
             if (bundle.getString("pre_selected_category") != null) {
                 modifyItemsToBeDisplayed(bundle.getString("pre_selected_category"), "no order");
             }
         }
+
+         */
+        return view;
     }
 
     /**
@@ -49,39 +57,13 @@ public class ItemScreen extends AppCompatActivity {
      */
     private void OrderPickerSetUp() {
         String[] itemOrderArray = {"Date added ascending","Date added descending","Alphabetical", "Alphabetical reversed"}; //TODO remove and implement properly
-
-        itemOrderSpinner = findViewById(R.id.spinner3);
-        ArrayAdapter<String> orderAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, itemOrderArray);
+        ArrayAdapter<String> orderAdapter = new ArrayAdapter<String>(categoryScreen, android.R.layout.simple_spinner_item, itemOrderArray);
         orderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         itemOrderSpinner.setAdapter(orderAdapter);
         itemOrderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                modifyItemsToBeDisplayed(categorySpinner.getSelectedItem().toString(), itemOrderSpinner.getSelectedItem().toString());
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
-        });
-    }
-
-    /**
-     * Setup for the spinner which picks which categories should be shown.
-     */
-    private void categoryPickerSetUp() {
-        List<String> categoryArray = new ArrayList<>();
-        for(Category cat : FileManager.getCategories()){
-            categoryArray.add(cat.getName());
-        }
-        categoryArray.add(0, "All Categories");
-
-        categorySpinner = findViewById(R.id.spinner2);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(adapter);
-        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                modifyItemsToBeDisplayed(categorySpinner.getSelectedItem().toString(), itemOrderSpinner.getSelectedItem().toString());
+                modifyItemsToBeDisplayed("All Categories", itemOrderSpinner.getSelectedItem().toString());
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
@@ -92,9 +74,8 @@ public class ItemScreen extends AppCompatActivity {
      * Setup for the recycler-view
      */
     private void recyclerViewSetUp() {
-        RecyclerView recyclerView = findViewById(R.id.recentlyAdded);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        this.recyclerViewAdapter = new RecyclerViewAdapter(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(categoryScreen));
+        this.recyclerViewAdapter = new RecyclerViewAdapter(categoryScreen);
         recyclerView.setAdapter(recyclerViewAdapter);
         RecyclerViewAdapter.ItemClickListener clickListener = new RecyclerViewAdapter.ItemClickListener() {
             @Override
@@ -108,7 +89,7 @@ public class ItemScreen extends AppCompatActivity {
 
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(getApplicationContext(), DetailedItemView.class);
+                Intent intent = new Intent(categoryScreen.getApplicationContext(), DetailedItemView.class);
                 startActivity(intent);
                 DetailedItemView.giveItem(recyclerViewAdapter.getItem(position));
             }
@@ -151,12 +132,5 @@ public class ItemScreen extends AppCompatActivity {
         }
         recyclerViewAdapter.setItemsList(modifiedListOfItems);
         recyclerViewAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        items = FileManager.getObject();
-        modifyItemsToBeDisplayed(categorySpinner.getSelectedItem().toString(), itemOrderSpinner.getSelectedItem().toString());
     }
 }

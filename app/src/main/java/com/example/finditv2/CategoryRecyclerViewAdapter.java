@@ -8,18 +8,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRecyclerViewAdapter.ViewHolder> {
 
-    CategoryScreen categoryScreen;
     List<Category> categories;
     HashMap<String,Integer> hashMap;
 
 
-    public CategoryRecyclerViewAdapter(CategoryScreen categoryScreen) {
-        this.categoryScreen = categoryScreen;
+    public CategoryRecyclerViewAdapter(List<Category> categories) {
+        this.categories = categories;
     }
 
     @NonNull
@@ -33,7 +33,8 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
     public void onBindViewHolder(@NonNull CategoryRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.name.setText(categories.get(position).getName());
         holder.imageView.setImageResource(R.drawable.no_image);
-        holder.itemView.setOnClickListener(view -> categoryScreen.changeActivity(position));
+        //holder.itemView.setOnClickListener(view -> categoryScreen.changeActivity(position));
+        /*
         Integer count = hashMap.get(categories.get(position).getName());
         if (count != null) {
             holder.count.setText("Items: " + String.valueOf(hashMap.get(categories.get(position).getName())));
@@ -41,6 +42,7 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
             holder.count.setText("Items: 0");
         }
 
+         */
     }
 
     @Override

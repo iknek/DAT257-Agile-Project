@@ -1,27 +1,33 @@
 package com.example.finditv2;
 
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Fragment {
+    public MainActivity (CategoryScreen categoryScreen) {
+        this.categoryScreen = categoryScreen;
+    }
 
-    /**
-     * Run on app start. Sets the current view window, and makes a file manager which takes in the current context.
-     * @param savedInstanceState = something or other.
-     */
+    private CategoryScreen categoryScreen;
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        RecyclerView recyclerView = findViewById(R.id.recentlyAdded);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        RecyclerView recyclerView = container.findViewById(R.id.recentlyAdded);
+        recyclerView.setLayoutManager(new LinearLayoutManager(categoryScreen));
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(categoryScreen);
         recyclerView.setAdapter(adapter);
+        return inflater.inflate(R.layout.activity_main, container, false);
     }
 
     /**
@@ -29,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void openItemMenu(View view) {
-        Intent intent = new Intent(getApplicationContext(), AddItemScreen.class);
+        Intent intent = new Intent(categoryScreen.getApplicationContext(), AddItemScreen.class);
         startActivity(intent);
     }
 
@@ -38,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view a reference to the view which the method is connected to.
      */
     public void goToItemScreen(View view) {
-        Intent intent = new Intent(getApplicationContext(), ItemScreen.class);
+        Intent intent = new Intent(categoryScreen.getApplicationContext(), ItemScreen.class);
         startActivity(intent);
     }
 
@@ -47,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view a reference to the view which the method is connected to.
      */
     public void goToAddCategoryScreen(View view){
-        Intent intent = new Intent(getApplicationContext(), AddCategoryScreen.class);
+        Intent intent = new Intent(categoryScreen.getApplicationContext(), AddCategoryScreen.class);
         startActivity(intent);
     }
 }

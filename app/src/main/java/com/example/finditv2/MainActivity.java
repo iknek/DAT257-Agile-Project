@@ -2,8 +2,6 @@ package com.example.finditv2;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.MenuItem;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -11,7 +9,6 @@ import com.example.finditv2.Fragments.AddNewFragment;
 import com.example.finditv2.Fragments.CategoriesFragment;
 import com.example.finditv2.Fragments.ItemsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Category> categories;
     private Fragment itemScreen;
     private Fragment addItemScreen;
-    private Fragment categoriesPageFragment;
+    private Fragment categoriesFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,33 +27,40 @@ public class MainActivity extends AppCompatActivity {
         categories = FileManager.getCategories();
         setContentView(R.layout.main_activity);
         Context context = getBaseContext();
+        categoriesFragment = new CategoriesFragment(context, categories, getItemCount());
         itemScreen = new ItemsFragment(context);
         addItemScreen = new AddNewFragment(context);
-        categoriesPageFragment = new CategoriesFragment(context, categories);
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,itemScreen).commit();
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation1);
         bottomNavigation.setSelectedItemId(R.id.main_screen);
         bottomNavigation.setOnItemSelectedListener(item -> {
             Fragment selectFragment = null;
+            String tag = null;
             switch (item.getOrder()) {
                 case 1:
-                    selectFragment = categoriesPageFragment;
+                    selectFragment = categoriesFragment;
+                    tag = "categoriesFragment";
                     break;
                 case 2:
                     selectFragment = itemScreen;
+                    tag = "itemScreen";
                     break;
                 case 3:
                     selectFragment = addItemScreen;
+                    tag = "addItemScreen";
                     break;
                 default: return true;
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectFragment,tag).commit();
             return true;
         });
     }
 
-    public void updateItemCounts () {
-        categoriesPageFragment.updateNumbers(getItemCount());
+    private void updateCategoriesNumbers () {
+        CategoriesFragment fragment = (CategoriesFragment) getSupportFragmentManager().findFragmentByTag("categoriesFragment");
+        if (fragment != null) {
+            fragment.updateNumbers(getItemCount());
+        }
     }
 
     private HashMap<String,Integer> getItemCount () {

@@ -18,8 +18,10 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
     HashMap<String,Integer> hashMap;
 
 
-    public CategoryRecyclerViewAdapter(List<Category> categories) {
+    public CategoryRecyclerViewAdapter(List<Category> categories, HashMap<String,Integer> hashMap) {
         this.categories = categories;
+        this.hashMap = hashMap;
+
     }
 
     @NonNull
@@ -34,15 +36,12 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
         holder.name.setText(categories.get(position).getName());
         holder.imageView.setImageResource(R.drawable.no_image);
         //holder.itemView.setOnClickListener(view -> categoryScreen.changeActivity(position));
-        /*
         Integer count = hashMap.get(categories.get(position).getName());
         if (count != null) {
             holder.count.setText("Items: " + String.valueOf(hashMap.get(categories.get(position).getName())));
         } else {
             holder.count.setText("Items: 0");
         }
-
-         */
     }
 
     @Override
@@ -57,7 +56,6 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
         this.hashMap = hashMap;
     }
 
-    // Den här classen representerar elementen i recycler viewen
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

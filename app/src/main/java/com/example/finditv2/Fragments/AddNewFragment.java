@@ -19,10 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import com.example.finditv2.Category;
-import com.example.finditv2.FileManager;
-import com.example.finditv2.Item;
-import com.example.finditv2.R;
+import com.example.finditv2.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -152,7 +149,6 @@ public class AddNewFragment extends Fragment {
             bitmap = null;
             imageView.setImageResource(R.drawable.no_image);
             toast.show();
-
         }
     }
 

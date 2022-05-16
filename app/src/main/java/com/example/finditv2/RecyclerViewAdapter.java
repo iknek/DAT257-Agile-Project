@@ -25,7 +25,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      * RecyclerViewAdapter constructor
      * @param context
      */
-    protected RecyclerViewAdapter(Context context) {
+    public RecyclerViewAdapter(Context context) {
         List<String> itemNames = new ArrayList<>();
         List<String> itemCategory = new ArrayList<>();
         this.mInflater = LayoutInflater.from(context);
@@ -127,7 +127,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      * @param id = item id
      * @return the item
      */
-    protected Item getItem(int id) {
+    public Item getItem(int id) {
         return items.get(id);
     }
 
@@ -135,12 +135,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      * Allows for itemClickListener to catch events
      * @param itemClickListener = click listener.
      */
-    protected void setClickListener(ItemClickListener itemClickListener) {
+    public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
     // parent activity will implement this method to respond to click events
-    protected interface ItemClickListener extends RecyclerView.OnItemTouchListener {
+    public interface ItemClickListener extends RecyclerView.OnItemTouchListener {
         void onItemClick(View view, int position);
     }
 
@@ -157,7 +157,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      * Binds items to itemsList
      * @param itemsList = list of items.
      */
-    protected void setItemsList(List<Item> itemsList){
+    public void setItemsList(List<Item> itemsList){
         this.items=itemsList;
     }
 }

@@ -4,15 +4,18 @@
             android:id="@+id/categories"
             android:enabled="true"
             android:icon="@drawable/category_48"
+            android:orderInCategory="1"
             android:title="Categories"/>
     <item
             android:id="@+id/main_screen"
             android:enabled="true"
             android:icon="@drawable/view_list_48"
+            android:orderInCategory="2"
             android:title="All items"/>
     <item
             android:id="@+id/add_item"
             android:enabled="true"
             android:icon="@drawable/add_icon_48"
+            android:orderInCategory="3"
             android:title="Add item"/>
 </menu>

@@ -1,4 +1,4 @@
-package com.example.finditv2;
+package com.example.finditv2.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,22 +18,23 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import com.example.finditv2.Category;
+import com.example.finditv2.FileManager;
+import com.example.finditv2.Item;
+import com.example.finditv2.R;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AddItemScreen extends Fragment {
-    public AddItemScreen (Context categoryScreen) {
-        this.categoryScreen = categoryScreen;
+public class AddNewFragment extends Fragment {
+    public AddNewFragment(Context context) {
+        this.mainActivityContext = context;
     }
-    private Context categoryScreen;
+    private final Context mainActivityContext;
     private Button addItem;
-    private Button back;
     private EditText descriptionBox;
     private EditText locationBox;
     private Spinner spinner;
@@ -41,30 +42,23 @@ public class AddItemScreen extends Fragment {
     private Bitmap bitmap;
     private Toast toast;
 
-    private static final int PICK_IMAGE = 100;
-    private static final int CAMERA_PIC_REQUEST = 1337;
-    private EditText locationStored;
-    private int requestCode;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.new_item_screen, container,false);
-        back = view.findViewById(R.id.button3);
         addItem = view.findViewById(R.id.button2);
         descriptionBox = view.findViewById(R.id.descriptionTextInput);
         locationBox = view.findViewById(R.id.locationTextInput);
         imageView = view.findViewById(R.id.imageView2);
         spinner = view.findViewById(R.id.spinner);
         imageView.setImageResource(R.drawable.no_image);
-        //locationStored = findViewById(R.id.locationTextInput2); TODO: Cleanup
         List<String> categoryArray = new ArrayList<>();
         for(Category cat : FileManager.getCategories()){
             categoryArray.add(cat.getName());
         }
         categoryArray.add(0, "All Categories");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(categoryScreen, android.R.layout.simple_spinner_item, categoryArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(mainActivityContext, android.R.layout.simple_spinner_item, categoryArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
@@ -122,8 +116,8 @@ public class AddItemScreen extends Fragment {
      * @param view
      */
     private void hideKeyboard(View view) {
-       // InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
-       // inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        InputMethodManager inputMethodManager =(InputMethodManager) mainActivityContext.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     /**
@@ -158,6 +152,7 @@ public class AddItemScreen extends Fragment {
             bitmap = null;
             imageView.setImageResource(R.drawable.no_image);
             toast.show();
+
         }
     }
 
@@ -185,7 +180,7 @@ public class AddItemScreen extends Fragment {
             } else {
                 try {
                     Uri imageUri = data.getData();
-                    bitmap = MediaStore.Images.Media.getBitmap(categoryScreen.getContentResolver(), imageUri);
+                    bitmap = MediaStore.Images.Media.getBitmap(mainActivityContext.getContentResolver(), imageUri);
                     imageView.setImageURI(imageUri);
                 } catch (IOException e) {
                     e.printStackTrace();

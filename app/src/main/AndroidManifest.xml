@@ -10,24 +10,14 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.FIndITv2">
         <activity
-                android:name=".MainActivity">
-        </activity>
-
-        <activity
-                android:name=".ItemScreen"
-                android:label="ItemScreen"/>
-        <activity
-                android:name=".AddItemScreen"
-                android:label="AddITemScreen"/>
-        <activity
                 android:name=".AddCategoryScreen"
                 android:label="AddCategoryScreen"/>
         <activity
                 android:name=".DetailedItemView"
                 android:label="DetailedItemView"/>
         <activity
-                android:name=".CategoryScreen"
-                android:label="CategoryScreen"
+                android:name=".MainActivity"
+                android:label="MainActivity"
                 android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN"/>

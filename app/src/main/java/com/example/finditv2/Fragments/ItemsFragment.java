@@ -1,4 +1,4 @@
-package com.example.finditv2;
+package com.example.finditv2.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,21 +10,20 @@ import android.view.ViewGroup;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.finditv2.*;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ItemScreen extends Fragment {
-    public ItemScreen (Context categoryScreen) {
-        this.categoryScreen = categoryScreen;
+public class ItemsFragment extends Fragment {
+    public ItemsFragment(Context context) {
+        this.mainActivityContext = context;
     }
-    private Context categoryScreen;
+    private final Context mainActivityContext;
     private Spinner itemOrderSpinner;
     private RecyclerViewAdapter recyclerViewAdapter;
     private List<Item> items;
@@ -57,7 +56,7 @@ public class ItemScreen extends Fragment {
      */
     private void OrderPickerSetUp() {
         String[] itemOrderArray = {"Date added ascending","Date added descending","Alphabetical", "Alphabetical reversed"}; //TODO remove and implement properly
-        ArrayAdapter<String> orderAdapter = new ArrayAdapter<String>(categoryScreen, android.R.layout.simple_spinner_item, itemOrderArray);
+        ArrayAdapter<String> orderAdapter = new ArrayAdapter<String>(mainActivityContext, android.R.layout.simple_spinner_item, itemOrderArray);
         orderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         itemOrderSpinner.setAdapter(orderAdapter);
         itemOrderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -74,8 +73,8 @@ public class ItemScreen extends Fragment {
      * Setup for the recycler-view
      */
     private void recyclerViewSetUp() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(categoryScreen));
-        this.recyclerViewAdapter = new RecyclerViewAdapter(categoryScreen);
+        recyclerView.setLayoutManager(new LinearLayoutManager(mainActivityContext));
+        this.recyclerViewAdapter = new RecyclerViewAdapter(mainActivityContext);
         recyclerView.setAdapter(recyclerViewAdapter);
         RecyclerViewAdapter.ItemClickListener clickListener = new RecyclerViewAdapter.ItemClickListener() {
             @Override
@@ -89,7 +88,7 @@ public class ItemScreen extends Fragment {
 
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(categoryScreen.getApplicationContext(), DetailedItemView.class);
+                Intent intent = new Intent(mainActivityContext.getApplicationContext(), DetailedItemView.class);
                 startActivity(intent);
                 DetailedItemView.giveItem(recyclerViewAdapter.getItem(position));
             }

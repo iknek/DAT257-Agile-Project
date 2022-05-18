@@ -75,7 +75,6 @@ public class AddNewFragment extends Fragment {
      * Sets listeners for buttons/other input fields.
      */
     private void listeners(){
-
         addItem.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 grabDescriptionText();
@@ -90,7 +89,6 @@ public class AddNewFragment extends Fragment {
                 }
             }
         });
-
         locationBox.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -99,7 +97,6 @@ public class AddNewFragment extends Fragment {
                 }
             }
         });
-
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,7 +107,6 @@ public class AddNewFragment extends Fragment {
 
     /**
      * Method for hiding keyboard.
-     * @param view
      */
     private void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager) mainActivityContext.getSystemService(Activity.INPUT_METHOD_SERVICE);

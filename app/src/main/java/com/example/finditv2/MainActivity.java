@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import com.example.finditv2.Fragments.AddNewFragment;
 import com.example.finditv2.Fragments.CategoriesFragment;
 import com.example.finditv2.Fragments.ItemsFragment;
+import com.example.finditv2.Fragments.NewCategoryPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.HashMap;
@@ -23,19 +24,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new FileManager(this);
-        categories = FileManager.getCategories();
         setContentView(R.layout.main_activity);
         Context context = getBaseContext();
+
+        new FileManager(this);
+        categories = FileManager.getCategories();
         categoriesFragment = new CategoriesFragment(context, categories, getItemCount());
         itemScreen = new ItemsFragment(context);
         addItemScreen = new AddNewFragment(context);
+
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,itemScreen).commit();
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation1);
         bottomNavigation.setSelectedItemId(R.id.main_screen);
         bottomNavigation.setOnItemSelectedListener(item -> {
-            Fragment selectFragment = null;
-            String tag = null;
+            Fragment selectFragment;
+            String tag;
             switch (item.getOrder()) {
                 case 1:
                     selectFragment = categoriesFragment;
@@ -66,10 +69,14 @@ public class MainActivity extends AppCompatActivity {
     private HashMap<String,Integer> getItemCount () {
         List<Item> items = FileManager.getObject();
         HashMap<String, Integer> hashMap = new HashMap<>();
-        for (Item item : items) {
-            hashMap.merge(item.getCategory(), 1, Integer::sum);
+        try {
+            for (Item item : items) {
+                hashMap.merge(item.getCategory(), 1, Integer::sum);
+            }
+            hashMap.put(categories.get(0).getName(),items.size());
         }
-        hashMap.put(categories.get(0).getName(),items.size());
+        catch (Exception ignored){};
+
         return hashMap;
     }
 }

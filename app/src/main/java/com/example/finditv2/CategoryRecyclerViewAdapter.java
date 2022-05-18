@@ -7,16 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRecyclerViewAdapter.ViewHolder> {
-
-    List<Category> categories;
-    HashMap<String,Integer> hashMap;
-
+    private List<Category> categories;
+    private HashMap<String,Integer> hashMap;
 
     public CategoryRecyclerViewAdapter(List<Category> categories, HashMap<String,Integer> hashMap) {
         this.categories = categories;
@@ -38,7 +34,7 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
         //holder.itemView.setOnClickListener(view -> categoryScreen.changeActivity(position));
         Integer count = hashMap.get(categories.get(position).getName());
         if (count != null) {
-            holder.count.setText("Items: " + String.valueOf(hashMap.get(categories.get(position).getName())));
+            holder.count.setText("Items: " + hashMap.get(categories.get(position).getName()));
         } else {
             holder.count.setText("Items: 0");
         }
@@ -56,13 +52,15 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
         this.hashMap = hashMap;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public ViewHolder(@NonNull View itemView) {
+    protected class ViewHolder extends RecyclerView.ViewHolder {
+        private final ImageView imageView = itemView.findViewById(R.id.imageView3);
+        private final TextView name = itemView.findViewById(R.id.textView7);
+        private final TextView count = itemView.findViewById(R.id.textView11);
+
+        private ViewHolder(@NonNull View itemView) {
             super(itemView);
         }
-        ImageView imageView = itemView.findViewById(R.id.imageView3);
-        TextView name = itemView.findViewById(R.id.textView7);
-        TextView count = itemView.findViewById(R.id.textView11);
+
     }
 }
 

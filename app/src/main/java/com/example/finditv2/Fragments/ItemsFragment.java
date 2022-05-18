@@ -11,6 +11,7 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.finditv2.*;
@@ -82,15 +83,17 @@ public class ItemsFragment extends Fragment {
                 return false;
             }
             @Override
-            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {            }
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e){}
             @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {            }
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept){}
 
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(mainActivityContext.getApplicationContext(), DetailedItemView.class);
-                startActivity(intent);
-                DetailedItemView.giveItem(recyclerViewAdapter.getItem(position));
+                DetailedItemsView.giveItem(recyclerViewAdapter.getItem(position));
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, new DetailedItemsView());
+                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction.commit();
             }
         };
         recyclerView.addOnItemTouchListener(clickListener);

@@ -77,27 +77,6 @@ public class FileManager {
     }
 
     /**
-     * Experiment in having only one method for getting objects of any type. Works if an item is passed ( see attached code).
-     * for (int i = 0; i < FileManager.getFromMem(item).size(); i++) {
-     *         System.out.println(FileManager.getFromMem(item).get(i).getDescription());
-     *     }
-     */
-    public static <T> List<T> getFromMem(T object){
-        List<T> list = new ArrayList<>();
-        String path = "";
-        if(object.getClass().equals(Item.class)){
-            path = "data.bin";
-        }
-        else path = "categories.bin";
-        try {
-            list = (List<T>) makeFIS(path);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    /**
      * Gets the most recently added object from the data.bin file.
      */
     public static List<Item> getObject(){

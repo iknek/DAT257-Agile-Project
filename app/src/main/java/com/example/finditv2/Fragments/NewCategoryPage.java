@@ -1,30 +1,40 @@
-package com.example.finditv2;
+package com.example.finditv2.Fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import com.example.finditv2.Category;
+import com.example.finditv2.FileManager;
+import com.example.finditv2.R;
 
-public class AddCategoryScreen extends AppCompatActivity {
+public class NewCategoryPage extends Fragment {
 
-    private Button back;
     private Button addCategory;
     private EditText descriptionBox;
 
     /**
      * Method which is called when the add category page is started.
      */
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_category_screen);
-        back = findViewById(R.id.button3);
-        back.setOnClickListener(view -> finish());
-        addCategory = findViewById(R.id.button7);
-        descriptionBox = findViewById(R.id.categoryTextInput);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.add_category_screen, container, false);
+        addCategory = view.findViewById(R.id.button7);
+        descriptionBox = view.findViewById(R.id.categoryTextInput);
+        listeners();
+        return view;
+    }
+
+    private void listeners(){
         addCategory.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 grabDescriptionText();
@@ -40,10 +50,9 @@ public class AddCategoryScreen extends AppCompatActivity {
 
     /**
      * Method for hiding keyboard.
-     * @param view
      */
     private void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
@@ -60,7 +69,7 @@ public class AddCategoryScreen extends AppCompatActivity {
      * @param category = the text from the textView
      */
     private void saveItem(String category){
-        Toast toast = new Toast(getApplicationContext());
+        Toast toast = new Toast(getActivity());
         if(category.isEmpty()){
             toast.setText("Category Name Must Be Specified!");
             toast.show();
@@ -77,3 +86,5 @@ public class AddCategoryScreen extends AppCompatActivity {
         toast.show();
     }
 }
+
+

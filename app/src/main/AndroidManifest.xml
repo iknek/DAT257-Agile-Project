@@ -10,12 +10,6 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.FIndITv2">
         <activity
-                android:name=".AddCategoryScreen"
-                android:label="AddCategoryScreen"/>
-        <activity
-                android:name=".DetailedItemView"
-                android:label="DetailedItemView"/>
-        <activity
                 android:name=".MainActivity"
                 android:label="MainActivity"
                 android:exported="true">

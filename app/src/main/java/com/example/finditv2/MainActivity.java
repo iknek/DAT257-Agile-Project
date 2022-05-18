@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import com.example.finditv2.Fragments.AddNewFragment;
 import com.example.finditv2.Fragments.CategoriesFragment;
 import com.example.finditv2.Fragments.ItemsFragment;
+import com.example.finditv2.Fragments.NewCategoryPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment itemScreen;
     private Fragment addItemScreen;
     private Fragment categoriesFragment;
+    private Fragment newCategoryPage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         Context context = getBaseContext();
         categoriesFragment = new CategoriesFragment(context, categories, getItemCount());
+        newCategoryPage = new NewCategoryPage();
         itemScreen = new ItemsFragment(context);
         addItemScreen = new AddNewFragment(context);
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,itemScreen).commit();

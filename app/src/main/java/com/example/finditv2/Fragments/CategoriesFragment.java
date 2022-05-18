@@ -43,10 +43,10 @@ public class CategoriesFragment extends Fragment {
         FloatingActionButton fab = view.findViewById(R.id.floatingActionButton);
         categories = FileManager.getCategories();
         categories.add(0, new Category("All Categories"));
-        fab.setOnClickListener(view1 -> {
+        /*fab.setOnClickListener(view1 -> {
             Intent intent = new Intent(mainActivityContext,AddCategoryScreen.class);
             startActivity(intent);
-        });
+        });*/
         return view;
     }
 

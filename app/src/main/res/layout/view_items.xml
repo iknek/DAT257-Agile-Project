@@ -4,7 +4,8 @@
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    android:background="@drawable/gradient_drawable"
                                                    android:layout_width="match_parent"
-                                                   android:layout_height="match_parent">
+                                                   android:layout_height="match_parent"
+                                                   android:id="@+id/searchItemView">
 
     <Spinner
             android:layout_width="190dp"
@@ -27,4 +28,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner3"/>
+    <SearchView
+            android:layout_width="207dp"
+            android:layout_height="57dp" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="1dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="673dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="1dp" android:layout_marginEnd="203dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

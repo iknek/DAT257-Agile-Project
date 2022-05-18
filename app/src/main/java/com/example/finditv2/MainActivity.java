@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment itemScreen;
     private Fragment addItemScreen;
     private Fragment categoriesFragment;
+    private Fragment newCategoryPage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         new FileManager(this);
         categories = FileManager.getCategories();
         categoriesFragment = new CategoriesFragment(context, categories, getItemCount());
+        newCategoryPage = new NewCategoryPage();
         itemScreen = new ItemsFragment(context);
         addItemScreen = new AddNewFragment(context);
 

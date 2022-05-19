@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.finditv2.*;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +26,9 @@ public class ItemsFragment extends Fragment {
     private Spinner itemOrderSpinner;
     private RecyclerViewAdapter recyclerViewAdapter;
     private List<Item> items;
+    private List<Item> modifiedListOfItems;
     private RecyclerView recyclerView;
+    private SearchView searchView;
     private String category = "All Categories";
 
     @Nullable
@@ -35,9 +38,55 @@ public class ItemsFragment extends Fragment {
         items = FileManager.getObject();
         itemOrderSpinner = view.findViewById(R.id.spinner3);
         recyclerView = view.findViewById(R.id.recentlyAdded);
+        searchView = view.findViewById(R.id.itemSearch);
+        searchSetup();
+
         OrderPickerSetUp();
         recyclerViewSetUp();
         return view;
+    }
+
+    private void searchSetup(){
+
+        searchView.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+
+                    // Override onQueryTextSubmit method
+                    // which is call
+                    // when submitquery is searched
+
+                    @Override
+                    public boolean onQueryTextSubmit(String query)
+                    {
+
+                        searchItems(query);
+                        return false;
+                    }
+
+                    // This method is overridden to filter
+                    // the adapter according to a search query
+                    // when the user is typing search
+                    @Override
+                    public boolean onQueryTextChange(String newText)
+                    {
+                        searchItems(newText);
+                        return false;
+                    }
+                });
+
+
+    }
+
+    private void searchItems(String query){
+
+        List<Item> searchResult = new ArrayList<>();
+        for (Item item : modifiedListOfItems){
+            if (item.getDescription().contains(query)){
+                searchResult.add(item);
+            }
+            recyclerViewAdapter.setItemsList(searchResult);
+        }
+
     }
 
     /**
@@ -96,7 +145,7 @@ public class ItemsFragment extends Fragment {
      */
     @SuppressLint("NotifyDataSetChanged")
     protected void modifyItemsToBeDisplayed (String category, String order) {
-        List<Item> modifiedListOfItems;
+        //List<Item> modifiedListOfItems;
         if(category.equals("All Categories")) {
                 modifiedListOfItems = items;
             } else {

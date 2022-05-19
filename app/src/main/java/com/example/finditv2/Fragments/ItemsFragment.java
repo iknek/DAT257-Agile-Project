@@ -50,22 +50,12 @@ public class ItemsFragment extends Fragment {
 
         searchView.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
-
-                    // Override onQueryTextSubmit method
-                    // which is call
-                    // when submitquery is searched
-
                     @Override
                     public boolean onQueryTextSubmit(String query)
                     {
-
                         searchItems(query);
                         return false;
                     }
-
-                    // This method is overridden to filter
-                    // the adapter according to a search query
-                    // when the user is typing search
                     @Override
                     public boolean onQueryTextChange(String newText)
                     {
@@ -73,18 +63,17 @@ public class ItemsFragment extends Fragment {
                         return false;
                     }
                 });
-
-
     }
 
     private void searchItems(String query){
 
         List<Item> searchResult = new ArrayList<>();
         for (Item item : modifiedListOfItems){
-            if (item.getDescription().contains(query)){
+            if (item.getDescription().toLowerCase().contains(query.toLowerCase())){
                 searchResult.add(item);
             }
             recyclerViewAdapter.setItemsList(searchResult);
+            recyclerViewAdapter.notifyDataSetChanged();
         }
 
     }

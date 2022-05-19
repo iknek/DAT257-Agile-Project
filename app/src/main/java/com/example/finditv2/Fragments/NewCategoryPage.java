@@ -76,7 +76,7 @@ public class NewCategoryPage extends Fragment {
             return;
         }
         boolean match = FileManager.getCategories().stream().anyMatch(cat-> cat.getName().equals(category));
-        if(match){
+        if(match || category.equalsIgnoreCase("All categories")){
             toast.setText("Category Already Exists!");
             toast.show();
             return;

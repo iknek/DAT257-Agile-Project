@@ -37,7 +37,7 @@ public class CategoriesFragment extends Fragment {
         View view = inflater.inflate(R.layout.categories_page, container, false);
         List<Category> categories = FileManager.getCategories();
         categories.add(0, new Category("All Categories"));
-        recyclerViewAdapter = new CategoryRecyclerViewAdapter(categories, getItemCount(), this);
+        recyclerViewAdapter = new CategoryRecyclerViewAdapter(categories, getItemCount(), this,getContext());
         RecyclerView categoryRecyclerView = view.findViewById(R.id.category_rc);
         categoryRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         categoryRecyclerView.setAdapter(recyclerViewAdapter);

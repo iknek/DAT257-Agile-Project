@@ -42,6 +42,7 @@ public class Item implements Serializable {
     public String getCategory() {
         return category;
     }
+
     public String getLocation() {return location;}
 
     public void setDescription(String description) {

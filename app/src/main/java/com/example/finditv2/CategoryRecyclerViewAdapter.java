@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.finditv2.Fragments.CategoriesFragment;
 import com.example.finditv2.Fragments.ItemsFragment;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRecyclerViewAdapter.ViewHolder> {
 
@@ -32,10 +34,20 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
         return new CategoryRecyclerViewAdapter.ViewHolder(view);
     }
 
+    public String checkForImagesInItems(Category c){
+        String str = "";
+        List<Item> items = FileManager.getObject().stream().filter(i -> i.getCategory().equals(c.getName())).collect(Collectors.toList());
+        List <String> itemsLeft = items.stream().map(i -> i.getImageUri()).filter(imageUri -> imageUri != null).collect(Collectors.toList());
+        if(!itemsLeft.isEmpty()) str = itemsLeft.get(0);
+        return str;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull CategoryRecyclerViewAdapter.ViewHolder holder, int position) {
+        String str = checkForImagesInItems(categories.get(position));
         holder.name.setText(categories.get(position).getName());
-        holder.imageView.setImageResource(R.drawable.no_image);
+        if(str.equals("")) holder.imageView.setImageResource(R.drawable.no_image);
+        else holder.imageView.setImageBitmap(FileManager.loadImageFromStorage(str));
         holder.itemView.setOnClickListener(view -> categoriesFragment.categorySelected(categories.get(position).getName()));
         Integer count = hashMap.get(categories.get(position).getName());
         if (count != null) {

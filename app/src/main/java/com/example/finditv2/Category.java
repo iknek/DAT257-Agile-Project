@@ -3,7 +3,6 @@ package com.example.finditv2;
 import java.io.Serializable;
 
 public class Category implements Serializable {
-
     private String name;
 
     /**

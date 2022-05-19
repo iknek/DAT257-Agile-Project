@@ -27,10 +27,6 @@ import java.util.Date;
 import java.util.List;
 
 public class AddNewFragment extends Fragment {
-    public AddNewFragment(Context context) {
-        this.mainActivityContext = context;
-    }
-    private final Context mainActivityContext;
     private Button addItem;
     private EditText descriptionBox;
     private EditText locationBox;
@@ -55,7 +51,7 @@ public class AddNewFragment extends Fragment {
         }
         categoryArray.add(0, "All Categories");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(mainActivityContext, android.R.layout.simple_spinner_item, categoryArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, categoryArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
@@ -109,7 +105,7 @@ public class AddNewFragment extends Fragment {
      * Method for hiding keyboard.
      */
     private void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager) mainActivityContext.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager =(InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
@@ -132,7 +128,6 @@ public class AddNewFragment extends Fragment {
     private void saveItem(String description, String location){
         if(!description.isEmpty()){
             String currentCategory = spinner.getSelectedItem().toString();
-            //Använder för att identifiera bilderna
             Date date = new Date(System.currentTimeMillis());
             Item item;
             if (bitmap != null) {
@@ -172,7 +167,7 @@ public class AddNewFragment extends Fragment {
             } else {
                 try {
                     Uri imageUri = data.getData();
-                    bitmap = MediaStore.Images.Media.getBitmap(mainActivityContext.getContentResolver(), imageUri);
+                    bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri);
                     imageView.setImageURI(imageUri);
                 } catch (IOException e) {
                     e.printStackTrace();

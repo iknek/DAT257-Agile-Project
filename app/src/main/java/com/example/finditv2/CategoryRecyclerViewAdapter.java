@@ -7,17 +7,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.finditv2.Fragments.CategoriesFragment;
+import com.example.finditv2.Fragments.ItemsFragment;
+
 import java.util.HashMap;
 import java.util.List;
 
 public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRecyclerViewAdapter.ViewHolder> {
+
     private List<Category> categories;
     private HashMap<String,Integer> hashMap;
+    private CategoriesFragment categoriesFragment;
 
-    public CategoryRecyclerViewAdapter(List<Category> categories, HashMap<String,Integer> hashMap) {
+    public CategoryRecyclerViewAdapter(List<Category> categories, HashMap<String,Integer> hashMap, CategoriesFragment categoriesFragment) {
         this.categories = categories;
         this.hashMap = hashMap;
-
+        this.categoriesFragment = categoriesFragment;
     }
 
     @NonNull
@@ -31,7 +36,7 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
     public void onBindViewHolder(@NonNull CategoryRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.name.setText(categories.get(position).getName());
         holder.imageView.setImageResource(R.drawable.no_image);
-        //holder.itemView.setOnClickListener(view -> categoryScreen.changeActivity(position));
+        holder.itemView.setOnClickListener(view -> categoriesFragment.categorySelected(categories.get(position).getName()));
         Integer count = hashMap.get(categories.get(position).getName());
         if (count != null) {
             holder.count.setText("Items: " + hashMap.get(categories.get(position).getName()));
@@ -45,10 +50,36 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
         return categories.size();
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public void incrementCount (String category) {
+        for (int i = 0; i < categories.size(); i++) {
+            if (categories.get(i).getName().equals(category)) {
+                Integer count = hashMap.get(category);
+                Integer newCount = count == null ? 1 : count + 1;
+                hashMap.replace(category,newCount);
+                notifyItemChanged(i);
+            }
+        }
     }
-    public void setCount(HashMap<String,Integer> hashMap) {
+
+    public void addCategory(Category category) {
+        categories.add(category);
+        notifyItemInserted(getItemCount() + 1);
+    }
+
+    public void removeCategory(Category category) {
+
+    }
+
+    public void decrementCount(String category) {
+        for (int i = 0; i < categories.size(); i++) {
+            if (categories.get(i).getName().equals(category)) {
+
+            }
+        }
+        notifyItemInserted(getItemCount() + 1);
+    }
+
+    public void setHashMap(HashMap<String, Integer> hashMap) {
         this.hashMap = hashMap;
     }
 
@@ -60,7 +91,6 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
         private ViewHolder(@NonNull View itemView) {
             super(itemView);
         }
-
     }
 }
 

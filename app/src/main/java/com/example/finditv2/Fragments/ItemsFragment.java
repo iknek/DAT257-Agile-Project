@@ -1,5 +1,6 @@
 package com.example.finditv2.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,15 +22,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ItemsFragment extends Fragment {
-    public ItemsFragment(Context context) {
-        this.mainActivityContext = context;
-    }
-    private final Context mainActivityContext;
     private Spinner itemOrderSpinner;
     private RecyclerViewAdapter recyclerViewAdapter;
     private List<Item> items;
-    private List<Item> modifiedListOfItems;
     private RecyclerView recyclerView;
+    private String category = "All Categories";
 
     @Nullable
     @Override
@@ -40,15 +37,6 @@ public class ItemsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recentlyAdded);
         OrderPickerSetUp();
         recyclerViewSetUp();
-        /*
-        Bundle bundle = cagetIntent().getExtras();
-        if (bundle != null) {
-            if (bundle.getString("pre_selected_category") != null) {
-                modifyItemsToBeDisplayed(bundle.getString("pre_selected_category"), "no order");
-            }
-        }
-
-         */
         return view;
     }
 
@@ -57,13 +45,13 @@ public class ItemsFragment extends Fragment {
      */
     private void OrderPickerSetUp() {
         String[] itemOrderArray = {"Date added ascending","Date added descending","Alphabetical", "Alphabetical reversed"}; //TODO remove and implement properly
-        ArrayAdapter<String> orderAdapter = new ArrayAdapter<String>(mainActivityContext, android.R.layout.simple_spinner_item, itemOrderArray);
+        ArrayAdapter<String> orderAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, itemOrderArray);
         orderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         itemOrderSpinner.setAdapter(orderAdapter);
         itemOrderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                modifyItemsToBeDisplayed("All Categories", itemOrderSpinner.getSelectedItem().toString());
+                modifyItemsToBeDisplayed(category, itemOrderSpinner.getSelectedItem().toString());
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
@@ -74,8 +62,8 @@ public class ItemsFragment extends Fragment {
      * Setup for the recycler-view
      */
     private void recyclerViewSetUp() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(mainActivityContext));
-        this.recyclerViewAdapter = new RecyclerViewAdapter(mainActivityContext);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        this.recyclerViewAdapter = new RecyclerViewAdapter(getContext());
         recyclerView.setAdapter(recyclerViewAdapter);
         RecyclerViewAdapter.ItemClickListener clickListener = new RecyclerViewAdapter.ItemClickListener() {
             @Override
@@ -90,7 +78,7 @@ public class ItemsFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 DetailedItemsView.giveItem(recyclerViewAdapter.getItem(position));
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container, new DetailedItemsView());
                 transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
                 transaction.commit();
@@ -106,12 +94,15 @@ public class ItemsFragment extends Fragment {
      * @param order What order the items should be displayed in
      * @return The list of items
      */
+    @SuppressLint("NotifyDataSetChanged")
     protected void modifyItemsToBeDisplayed (String category, String order) {
+        List<Item> modifiedListOfItems;
         if(category.equals("All Categories")) {
-            modifiedListOfItems = items;
-        } else {
-            modifiedListOfItems = items.stream().filter(item -> item.getCategory().equals(category)).collect(Collectors.toList());
-        }
+                modifiedListOfItems = items;
+            } else {
+                modifiedListOfItems = items.stream().filter(item -> item.getCategory().equals(category)).collect(Collectors.toList());
+            }
+
         switch (order) {
             case "Alphabetical reversed":
                 modifiedListOfItems.sort((item, t1) -> {
@@ -133,6 +124,13 @@ public class ItemsFragment extends Fragment {
                 break;
         }
         recyclerViewAdapter.setItemsList(modifiedListOfItems);
+        recyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setCategory (String category) {
+        this.category = category;
+        modifyItemsToBeDisplayed(category, "no order");
         recyclerViewAdapter.notifyDataSetChanged();
     }
 }

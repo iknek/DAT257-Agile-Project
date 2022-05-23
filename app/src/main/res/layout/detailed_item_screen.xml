@@ -16,13 +16,15 @@
             app:layout_constraintBottom_toTopOf="@+id/view3"/>
     <Button
             android:text="Remove item"
-            android:layout_width="142dp"
-            android:layout_height="51dp" android:id="@+id/button4"
+            android:layout_width="160dp"
+            android:layout_height="50dp" android:id="@+id/button4"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="57dp" android:layout_marginEnd="52dp"
-            app:layout_constraintEnd_toEndOf="parent" android:background="#F44336"
-            app:backgroundTint="#F44336"/>
+            android:layout_marginEnd="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:backgroundTint="#F44336"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="54dp"
+            android:layout_marginTop="30dp" app:layout_constraintTop_toBottomOf="@+id/view3"
+            android:layout_marginStart="20dp" app:layout_constraintStart_toEndOf="@+id/button8"/>
     <View
             android:layout_width="300dp"
             android:layout_height="310dp"
@@ -33,7 +35,7 @@
             android:layout_marginStart="50dp" android:layout_marginEnd="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="49dp" app:layout_constraintTop_toBottomOf="@+id/imageView5"
-            android:layout_marginBottom="24dp" app:layout_constraintBottom_toTopOf="@+id/button4"/>
+            app:layout_constraintBottom_toTopOf="@+id/button4"/>
 
     <TextView
             android:text="Time added"
@@ -93,14 +95,25 @@
             android:id="@+id/view" android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/textView4"/>
     <Button
-            android:text="Edit Item"
+            android:text="Save Changes"
             android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/button8"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="49dp"
-            app:layout_constraintEnd_toStartOf="@+id/button4" android:layout_marginEnd="60dp"
+            android:layout_width="160dp"
+            android:layout_height="50dp" android:id="@+id/button8"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="50dp"
+            app:layout_constraintEnd_toStartOf="@+id/button4"
             android:layout_marginTop="30dp" app:layout_constraintTop_toBottomOf="@+id/view3"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="54dp"/>
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="54dp"
+            android:layout_marginEnd="20dp"/>
+    <TextView
+            android:text="Click on text to edit!"
+            android:textSize="8pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView14"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="72dp"
+            android:layout_marginTop="21dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageView5" android:layout_marginBottom="9dp"
+            app:layout_constraintBottom_toTopOf="@+id/view3"
+    />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

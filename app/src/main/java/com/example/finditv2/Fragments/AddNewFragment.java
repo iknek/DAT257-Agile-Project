@@ -44,7 +44,7 @@ public class AddNewFragment extends Fragment {
         locationBox = view.findViewById(R.id.locationTextInput);
         imageView = view.findViewById(R.id.imageView2);
         spinner = view.findViewById(R.id.spinner);
-        imageView.setImageResource(R.drawable.no_image);
+        imageView.setImageResource(R.drawable.add_image);
         List<String> categoryArray = new ArrayList<>();
         for(Category cat : FileManager.getCategories()){
             categoryArray.add(cat.getName());

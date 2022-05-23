@@ -9,25 +9,38 @@
                                                    android:focusableInTouchMode="true" android:focusable="true">
     <TextView
             android:text="Add location"
-            android:layout_width="132dp"
+            android:layout_width="0dp"
             android:layout_height="20dp" android:id="@+id/textView6"
             android:textAlignment="center" tools:ignore="MissingConstraints"
             app:layout_constraintBottom_toTopOf="@+id/locationTextInput"
             android:layout_marginBottom="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="139dp" android:layout_marginEnd="140dp"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"/>
+            android:layout_marginStart="140dp" android:layout_marginEnd="140dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginTop="40dp" app:layout_constraintTop_toBottomOf="@+id/descriptionTextInput"/>
+    <TextView
+            android:text="Add Image"
+            android:layout_width="0dp"
+            android:layout_height="20dp" android:id="@+id/textView2"
+            android:textAlignment="center" tools:ignore="MissingConstraints"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="140dp" android:layout_marginEnd="140dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.487"
+            android:layout_marginTop="40dp" app:layout_constraintTop_toBottomOf="@+id/locationTextInput"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/imageView2"/>
     <Button
             android:text="Add item"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content" android:id="@+id/button2"
             android:textColor="@color/black"
             tools:ignore="MissingConstraints"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="152dp" android:layout_marginEnd="153dp"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="236dp" app:layout_constraintHorizontal_bias="0.0"/>
+            android:layout_marginStart="140dp" android:layout_marginEnd="140dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginTop="49dp" app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="75dp"/>
     <EditText
-            android:layout_width="238dp"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:inputType="textPersonName"
             android:ems="10"
@@ -36,10 +49,10 @@
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintBottom_toTopOf="@+id/textView6" app:layout_constraintVertical_bias="0.116"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="84dp"
-            android:layout_marginEnd="85dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="84dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5" android:hint="i.e Coat"/>
     <EditText
-            android:layout_width="242dp"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:inputType="textPersonName"
             android:ems="10"
@@ -48,29 +61,51 @@
             android:layout_marginBottom="316dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="84dp" android:layout_marginEnd="84dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.5" android:hint="i.e behind the bench"/>
+            app:layout_constraintHorizontal_bias="0.5" android:hint="i.e behind the bench"
+            app:layout_constraintTop_toBottomOf="@+id/textView6"/>
     <TextView
             android:text="Add description"
-            android:layout_width="132dp"
+            android:layout_width="0dp"
             android:layout_height="20dp" android:id="@+id/textView"
             android:textAlignment="center" tools:ignore="MissingConstraints"
             app:layout_constraintStart_toStartOf="parent"
 
-            android:layout_marginStart="139dp" android:layout_marginEnd="140dp"
+            android:layout_marginStart="140dp" android:layout_marginEnd="140dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="188dp" app:layout_constraintHorizontal_bias="0.0"/>
+            android:layout_marginTop="188dp" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toTopOf="@+id/descriptionTextInput"/>
+    <TextView
+            android:text="Select Category"
+            android:layout_width="0dp"
+            android:layout_height="20dp" android:id="@+id/textView3"
+            android:textAlignment="center" tools:ignore="MissingConstraints"
+            app:layout_constraintStart_toStartOf="parent"
+
+            android:layout_marginStart="140dp" android:layout_marginEnd="140dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="60dp" android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/spinner"/>
     <Spinner
-            android:layout_width="130dp"
+            android:layout_width="0dp"
             android:layout_height="47dp" android:id="@+id/spinner"
             android:background="#FFFFFF" android:visibility="visible"
             tools:visibility="visible" tools:ignore="MissingConstraints,SpeakableTextPresentCheck"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             android:layout_marginBottom="52dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="140dp"/>
+            android:layout_marginStart="130dp" android:layout_marginEnd="130dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="91dp"/>
     <ImageView
-            android:layout_width="193dp"
-            android:layout_height="137dp" tools:srcCompat="@tools:sample/backgrounds/scenic"
+            android:layout_width="0dp"
+            android:layout_height="100dp" tools:srcCompat="@drawable/add_image"
+            android:src="@drawable/add_image"
             android:id="@+id/imageView2"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="108dp" android:layout_marginBottom="60dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="150dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="150dp"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toTopOf="@+id/button2"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

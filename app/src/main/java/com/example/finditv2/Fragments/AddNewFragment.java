@@ -1,7 +1,6 @@
 package com.example.finditv2.Fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -44,7 +43,7 @@ public class AddNewFragment extends Fragment {
         locationBox = view.findViewById(R.id.locationTextInput);
         imageView = view.findViewById(R.id.imageView2);
         spinner = view.findViewById(R.id.spinner);
-        imageView.setImageResource(R.drawable.add_image);
+        imageView.setImageResource(R.drawable.no_img);
         List<String> categoryArray = new ArrayList<>();
         for(Category cat : FileManager.getCategories()){
             categoryArray.add(cat.getName());

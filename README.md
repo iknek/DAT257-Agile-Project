@@ -1,4 +1,4 @@
-# DAT257-Agile-Project
+# FindIt
 This is a simple android application that allows for users to catalogue and search for items. 
 
 Installation:
